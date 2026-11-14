@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteContent, type Locale } from '../data/siteContent';
+import homePortrait from '../../homepage-image.jpeg';
 
 const locale: Locale = 'en';
 const content = siteContent[locale];
@@ -12,8 +14,15 @@ const content = siteContent[locale];
   locale={locale}
   compactTop
 >
-  <section class="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
-    <div class="min-w-0">
+  <section class="grid grid-cols-1 items-center gap-8 md:grid-cols-[minmax(0,1fr)_14rem] md:gap-12">
+    <Image
+      src={homePortrait}
+      alt="Portrait of Luís Otávio Azevedo Maciel"
+      width={480}
+      height={480}
+      class="order-first mx-auto aspect-square w-36 rounded-xl object-cover md:order-last md:w-56"
+    />
+    <div class="max-w-3xl">
       <span class="eyebrow">{content.hero.eyebrow}</span>
       <h1 class="mt-6 text-4xl font-black tracking-tight text-[var(--color-foreground)] sm:text-5xl lg:text-6xl">
         {content.hero.title}<br />
@@ -21,7 +30,7 @@ const content = siteContent[locale];
       </h1>
       <p class="mt-6 max-w-xl text-lg text-[var(--color-muted)]">{content.intro}</p>
       <div class="mt-8 flex flex-wrap gap-4">
-        <a href={content.hero.primaryHref} class="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">
+        <a href={content.hero.primaryHref} class="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition hover:bg-[var(--color-accent-hover)]">
           {content.hero.primaryCta}
         </a>
         <a href={content.hero.secondaryHref} class="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
@@ -29,40 +38,27 @@ const content = siteContent[locale];
         </a>
       </div>
     </div>
+  </section>
 
-    <div class="card min-w-0 p-6">
-      <p class="section-label">Profile</p>
-      <div class="mt-5 space-y-5">
-        <div>
-          <p class="text-sm uppercase tracking-[0.14em] text-[var(--color-muted)]">Role</p>
-          <p class="mt-1 text-xl font-semibold text-[var(--color-foreground)]">{content.title}</p>
-        </div>
-        <div>
-          <p class="text-sm uppercase tracking-[0.14em] text-[var(--color-muted)]">Location</p>
-          <p class="mt-1 text-base text-[var(--color-foreground)]">Portugal</p>
-        </div>
-        <div>
-          <p class="text-sm uppercase tracking-[0.14em] text-[var(--color-muted)]">Focus</p>
-          <p class="mt-1 text-base text-[var(--color-foreground)]">Architecture, cloud, delivery and mentoring.</p>
-        </div>
-      </div>
+  <section class="mt-12 border-y border-[var(--color-border)] bg-[var(--color-accent-soft)] px-5 py-8 sm:px-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
+    <div>
+      <p class="section-label">Services</p>
+      <h2 class="mt-2 text-xl font-semibold text-[var(--color-foreground)]">Consulting and mentoring for better engineering.</h2>
+      <p class="mt-2 max-w-2xl text-sm text-[var(--color-muted)]">Practical support for teams building reliable systems and engineers growing their technical leadership.</p>
     </div>
+    <a href="/services/" class="mt-5 inline-flex shrink-0 rounded-full border border-[var(--color-border)] px-5 py-2.5 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] lg:mt-0">Explore services →</a>
   </section>
 
-  <section class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-    {content.stats.map((stat) => (
-      <div class="card p-5">
-        <p class="text-3xl font-black tracking-tight text-[var(--color-accent)]">{stat.title}</p>
-        <p class="mt-2 text-sm text-[var(--color-muted)]">{stat.description}</p>
+  <section class="mt-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="section-label">Selected work</p>
+        <h2 class="section-title">Projects and engineering outcomes that matter.</h2>
       </div>
-    ))}
-  </section>
-
-  <section class="mt-20">
-    <p class="section-label">Selected work</p>
-    <h2 class="section-title">Projects and engineering outcomes that matter.</h2>
-    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-      {content.caseStudies.map((project) => (
+      <a href="/work/" class="text-sm font-semibold text-[var(--color-accent)] transition hover:text-[var(--color-foreground)]">All work →</a>
+    </div>
+    <div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
+      {content.caseStudies.slice(0, 2).map((project) => (
         <article class="card p-6">
           <div class="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
@@ -78,11 +74,16 @@ const content = siteContent[locale];
     </div>
   </section>
 
-  <section class="mt-20">
-    <p class="section-label">Writing</p>
-    <h2 class="section-title">Articles on architecture, delivery and technical leadership.</h2>
-    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-      {content.articles.map((article) => (
+  <section class="mt-16">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="section-label">Writing</p>
+        <h2 class="section-title">Articles on architecture, delivery and technical leadership.</h2>
+      </div>
+      <a href="/writing/" class="text-sm font-semibold text-[var(--color-accent)] transition hover:text-[var(--color-foreground)]">All writing →</a>
+    </div>
+    <div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2">
+      {content.articles.slice(0, 2).map((article) => (
         <article class="card p-6">
           <span class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">{article.category}</span>
           <h3 class="mt-4 text-xl font-semibold text-[var(--color-foreground)]">{article.title}</h3>
@@ -96,39 +97,4 @@ const content = siteContent[locale];
     </div>
   </section>
 
-  <section class="mt-20 grid grid-cols-1 gap-8 lg:grid-cols-2">
-    <div class="card p-8">
-      <p class="section-label">Consulting</p>
-      <h2 class="section-title">Software Engineering & Architecture Consulting</h2>
-      <p class="mt-4 text-[var(--color-muted)]">I help teams design systems, reduce delivery risk and operate more confidently in the cloud and beyond.</p>
-      <ul class="mt-6 space-y-3 text-sm text-[var(--color-foreground)]">
-        {content.services.slice(0, 3).map((service) => (
-          <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]"></span>{service.title}</li>
-        ))}
-      </ul>
-    </div>
-
-    <div class="card p-8">
-      <p class="section-label">Mentoring</p>
-      <h2 class="section-title">Software Engineering Mentoring</h2>
-      <p class="mt-4 text-[var(--color-muted)]">Practical mentoring for engineers who want to build stronger technical judgment and step into leadership with confidence.</p>
-      <ul class="mt-6 space-y-3 text-sm text-[var(--color-foreground)]">
-        {content.mentoringStages.map((stage) => (
-          <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]"></span>{stage.title}</li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <section class="mt-20 card p-8 sm:p-10">
-    <p class="section-label">About</p>
-    <h2 class="section-title">Clear technical leadership with business context.</h2>
-    <p class="mt-5 max-w-3xl text-lg text-[var(--color-muted)]">
-      I partner with founders, managers and delivery teams to make engineering decisions easier to understand, easier to execute and easier to trust.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-4">
-      <a href="/about/" class="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">Learn more</a>
-      <a href="/contact/" class="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Contact</a>
-    </div>
-  </section>
 </BaseLayout>

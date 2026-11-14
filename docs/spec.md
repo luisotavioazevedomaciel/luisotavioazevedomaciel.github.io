@@ -251,13 +251,14 @@ Junior mentoring may have strong demand but lower purchasing power. Validate wil
 
 ## 4.1 Main navigation
 
-- Home
 - About
 - Work
 - Writing
 - Services
 
-Primary CTA: Contact
+The name/brand links to the localized home route; do not include a separate Home item.
+
+Primary CTA: Contact. Keep Contact visually distinct from the main navigation links.
 
 ## 4.2 Routes
 
@@ -279,15 +280,16 @@ Do not generate a translation route merely because the other language version ex
 
 Recommended section order:
 
-1. Hero: identity, positioning and primary CTA.
-2. Selected Work: strongest engineering case studies.
-3. Writing: recent and featured articles.
-4. Consulting: Software Engineering & Architecture Consulting.
-5. Mentoring: Software Engineering Mentoring.
-6. About: concise professional background.
-7. Contact: direct contact and professional links.
+1. Hero: identity, positioning, Contact CTA, link to selected work and a portrait.
+2. Services: one concise, visually highlighted introduction to consulting and mentoring, linking to the Services page.
+3. Selected Work: up to two strong engineering case studies, with a link to all work.
+4. Writing: up to two recent or featured articles, with a link to all writing.
 
-The homepage should communicate what you do, demonstrate credibility and make the next step obvious.
+Use a compact LM monogram as the localized home link in the navigation, with an accessible name identifying the home page and owner.
+
+Keep the homepage focused. Do not add a stats strip, separate profile summary, duplicated About summary, or full Consulting and Mentoring sections. Detailed professional background and service information belong on their dedicated pages.
+
+Use a restrained forest-green accent with neutral surfaces in both light and dark themes. Apply semantic theme tokens consistently to links, buttons, hover states and highlights; do not use blue as the accent.
 
 ## 4.4 Services page
 
@@ -713,7 +715,7 @@ Scope:
 - Astro project setup.
 - TypeScript and Tailwind.
 - Responsive layout.
-- Homepage.
+- Concise English and Portuguese homepages with a portrait, up to two Work and two Writing previews, a highlighted Services introduction directly after the hero and clear Contact access; use an accessible LM monogram for the home link, with no stats strip or separate profile summary.
 - About page.
 - Work and selected case studies.
 - Writing index and article pages.
@@ -736,7 +738,7 @@ Scope:
 - Analytics dashboards.
 
 **Definition of Done:**
-A visitor can understand your professional positioning, review your experience, explore your work, understand both service offerings and contact you.
+A visitor can understand your professional positioning, review your experience on the About page, explore selected work and writing, find both service offerings and contact you. The homepage presents this information without a stats strip or repeated page summaries.
 
 ## Phase 2 — Editorial platform
 

@@ -26,6 +26,13 @@ const { title, description, locale = 'en', compactTop = false } = Astro.props as
     <meta property="og:description" content={description} />
     <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
     <title>{title}</title>
+    <script is:inline>
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.dataset.theme = savedTheme === 'dark' || savedTheme === 'light'
+        ? savedTheme
+        : prefersDark ? 'dark' : 'light';
+    </script>
   </head>
   <body>
     <SiteHeader locale={locale} />

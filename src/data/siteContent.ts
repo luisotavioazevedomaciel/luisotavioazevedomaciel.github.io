@@ -29,19 +29,18 @@ export type Article = {
 export const siteContent = {
   en: {
     name: 'Luís Otávio Azevedo Maciel',
-    title: 'Technical Lead | Software Architecture | Cloud Engineering',
+    title: 'Technical Lead | Senior Software Engineer',
     description:
       'I help engineering teams design, modernize and build reliable software systems. I also mentor software engineers who want to grow into stronger technical leaders.',
     nav: [
-      { label: 'Home', href: '/' },
       { label: 'About', href: '/about/' },
       { label: 'Work', href: '/work/' },
       { label: 'Writing', href: '/writing/' },
-      { label: 'Services', href: '/services/' },
-      { label: 'Contact', href: '/contact/' }
+      { label: 'Services', href: '/services/' }
     ] as NavItem[],
+    contactCta: { label: 'Contact', href: '/contact/' },
     hero: {
-      eyebrow: 'Architecture, cloud & engineering leadership',
+      eyebrow: 'Software Engineering',
       title: 'Building better software.',
       subtitle: 'Growing better engineers.',
       primaryCta: 'Let’s discuss your project',
@@ -51,12 +50,6 @@ export const siteContent = {
     },
     intro:
       'I am a Technical Lead with 7+ years of software engineering experience helping teams design resilient systems, simplify delivery and grow stronger engineering habits.',
-    stats: [
-      { title: '7+', description: 'years in software engineering' },
-      { title: '3', description: 'core consulting service packages' },
-      { title: '2', description: 'service tracks: consulting and mentoring' },
-      { title: '1', description: 'clear focus: practical technical leadership' }
-    ],
     services: [
       {
         title: 'Software Architecture & System Design',
@@ -161,28 +154,26 @@ export const siteContent = {
     ],
     contactLinks: [
       { label: 'Email', href: 'mailto:otavioazevedo7@gmail.com' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisotavioazevedomaciel/' },
-      { label: 'GitHub', href: 'https://github.com' }
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisotavioazevedomaciel/' }
     ],
     footer: 'Building better software. Growing better engineers.'
   },
   pt: {
     name: 'Luís Otávio Azevedo Maciel',
-    title: 'Technical Lead | Arquitetura de Software | Engenharia em Cloud',
+    title: 'Lider Técnico | Engenheiro de Software Senior',
     description:
       'Ajudo times de engenharia a desenhar, modernizar e construir sistemas confiáveis. Também mentoro engenheiros que querem crescer em liderança técnica.',
     nav: [
-      { label: 'Início', href: '/pt/' },
       { label: 'Sobre', href: '/pt/sobre/' },
       { label: 'Projetos', href: '/pt/projetos/' },
       { label: 'Artigos', href: '/pt/artigos/' },
-      { label: 'Serviços', href: '/pt/servicos/' },
-      { label: 'Contato', href: '/pt/contato/' }
+      { label: 'Serviços', href: '/pt/servicos/' }
     ] as NavItem[],
+    contactCta: { label: 'Contato', href: '/pt/contato/' },
     hero: {
-      eyebrow: 'Arquitetura, cloud e liderança de engenharia',
+      eyebrow: 'Engenharia de Software',
       title: 'Construindo software melhor.',
-      subtitle: 'Crescendo melhores engenheiros.',
+      subtitle: 'Ajudando engenheiros a evoluir.',
       primaryCta: 'Vamos conversar sobre seu projeto',
       secondaryCta: 'Ver projetos',
       primaryHref: '/pt/contato/',
@@ -190,12 +181,6 @@ export const siteContent = {
     },
     intro:
       'Sou um Technical Lead com mais de 7 anos de experiência em engenharia de software, ajudando times a criar sistemas resilientes, simplificar entrega e desenvolver hábitos de engenharia mais fortes.',
-    stats: [
-      { title: '7+', description: 'anos em engenharia de software' },
-      { title: '3', description: 'pacotes de serviço principais' },
-      { title: '2', description: 'linhas de serviço: consultoria e mentoria' },
-      { title: '1', description: 'foco claro: liderança técnica prática' }
-    ],
     services: [
       {
         title: 'Arquitetura de Software e Design de Sistemas',
@@ -300,10 +285,9 @@ export const siteContent = {
     ],
     contactLinks: [
       { label: 'Email', href: 'mailto:otavioazevedo7@gmail.com' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisotavioazevedomaciel/' },
-      { label: 'GitHub', href: 'https://github.com' }
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisotavioazevedomaciel/' }
     ],
-    footer: 'Construindo software melhor. Crescendo melhores engenheiros.'
+    footer: 'Construindo software melhor. Ajudando engenheiros a evoluir.'
   }
 } as const;
 
