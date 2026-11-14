@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteContent, type Locale } from '../../data/siteContent';
+
+const locale: Locale = 'pt';
+const content = siteContent[locale];
+---
+
+<BaseLayout title={`Artigos | ${content.name}`} description="Artigos sobre arquitetura, entrega e liderança técnica." locale={locale}>
+  <section>
+    <p class="section-label">Artigos</p>
+    <h1 class="section-title mt-3 text-4xl sm:text-5xl">Escritos práticos para engenheiros e times técnicos.</h1>
+    <p class="mt-5 max-w-3xl text-lg text-[var(--color-muted)]">Escrevo sobre arquitetura, modernização, liderança e as decisões que tornam a engenharia sustentável.</p>
+  </section>
+
+  <section class="mt-12 grid gap-6 lg:grid-cols-3">
+    {content.articles.map((article) => (
+      <article class="card p-6">
+        <span class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">{article.category}</span>
+        <h2 class="mt-4 text-2xl font-semibold text-[var(--color-foreground)]">{article.title}</h2>
+        <p class="mt-4 text-[var(--color-muted)]">{article.excerpt}</p>
+        <div class="mt-6 flex items-center justify-between text-sm text-[var(--color-muted)]">
+          <span>{article.readTime}</span>
+          <a href={`/pt/artigos/${article.slug}/`} class="font-semibold text-[var(--color-accent)]">Ler artigo →</a>
+        </div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteContent, type Locale } from '../../data/siteContent';
+
+const locale: Locale = 'pt';
+const content = siteContent[locale];
+---
+
+<BaseLayout title={`Sobre | ${content.name}`} description={content.description} locale={locale}>
+  <section class="max-w-4xl">
+    <p class="section-label">Sobre</p>
+    <h1 class="section-title mt-3 text-4xl sm:text-5xl">Liderança técnica com base na entrega.</h1>
+    <p class="mt-6 text-lg text-[var(--color-muted)]">{content.intro}</p>
+  </section>
+
+  <section class="mt-12 grid gap-6 lg:grid-cols-2">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-foreground)]">O que trago</h2>
+      <ul class="mt-6 space-y-4 text-[var(--color-muted)]">
+        <li>• Pensamento de arquitetura claro sem exageros.</li>
+        <li>• Experiência prática em cloud, APIs e decisões de plataforma.</li>
+        <li>• Liderança que ajuda times a fazer melhores escolhas técnicas com menos atrito.</li>
+        <li>• Mentoria baseada em prática real e trade-offs honestos.</li>
+      </ul>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Trajetória</h2>
+      <p class="mt-6 text-[var(--color-muted)]">
+        Tenho trabalhado nos últimos sete anos em engenharia de software, entrega de plataformas e liderança técnica. Meu trabalho fica entre arquitetura e execução: ajudar times a criar sistemas confiáveis, compreensíveis e fáceis de evoluir.
+      </p>
+    </div>
+  </section>
+
+  <section class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Experiência</h2>
+      <ul class="mt-6 space-y-3 text-[var(--color-muted)]">
+        <li>• Technical Lead em engenharia de produto e plataforma.</li>
+        <li>• Revisões de arquitetura e orientação de design de sistemas.</li>
+        <li>• Engenharia em cloud e modernização de DevOps.</li>
+      </ul>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Forças centrais</h2>
+      <ul class="mt-6 space-y-3 text-[var(--color-muted)]">
+        <li>• Estratégia de arquitetura e análise de trade-offs.</li>
+        <li>• Orientação em cloud e infraestrutura.</li>
+        <li>• Qualidade de entrega e suporte à liderança técnica.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mt-12 card p-8">
+    <p class="section-label">Certificações</p>
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+      {content.certifications.map((cert) => (
+        <li class="rounded-xl border border-[var(--color-border)] bg-[var(--color-accent-soft)] px-4 py-3 text-sm text-[var(--color-foreground)]">{cert}</li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

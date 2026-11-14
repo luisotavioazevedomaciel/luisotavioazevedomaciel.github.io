@@ -1,0 +1,32 @@
+---
+import { routeForLocale, type Locale } from '../data/siteContent';
+
+const { locale = 'en' } = Astro.props as { locale?: Locale };
+const targetLocale: Locale = locale === 'en' ? 'pt' : 'en';
+const href = routeForLocale(Astro.url.pathname, targetLocale);
+const currentCode = locale === 'en' ? 'EN' : 'PT';
+const targetCode = targetLocale === 'en' ? 'EN' : 'PT';
+const groupLabel = locale === 'en' ? 'Language' : 'Idioma';
+const currentLabel = locale === 'en' ? 'English (current)' : 'Português (atual)';
+const targetLabel = locale === 'en' ? 'Switch to Portuguese' : 'Mudar para inglês';
+---
+<div
+  role="group"
+  aria-label={groupLabel}
+  class="inline-flex items-center gap-0.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] p-1 text-xs font-semibold"
+>
+  <span
+    aria-current="page"
+    aria-label={currentLabel}
+    class="rounded-full bg-[var(--color-accent)] px-2 py-1.5 text-[var(--color-background)]"
+  >
+    {currentCode}
+  </span>
+  <a
+    href={href}
+    aria-label={targetLabel}
+    class="rounded-full px-2 py-1.5 text-[var(--color-muted)] transition hover:bg-[var(--color-accent-soft)] hover:text-[var(--color-accent)]"
+  >
+    {targetCode}
+  </a>
+</div>

@@ -186,7 +186,7 @@ Topics:
 
 Potential format: A structured four-week mentoring programme.
 
-### B. Mid-level / Senior
+### B. Mid-level → Senior
 
 Focus: Developing broader technical ownership.
 
@@ -256,7 +256,6 @@ Junior mentoring may have strong demand but lower purchasing power. Validate wil
 - Work
 - Writing
 - Services
-- CV
 
 Primary CTA: Contact
 
@@ -271,7 +270,6 @@ English is the default language.
 | Work | `/work/` | `/pt/projetos/` |
 | Writing | `/writing/` | `/pt/artigos/` |
 | Services | `/services/` | `/pt/servicos/` |
-| CV | `/cv/` | `/pt/cv/` |
 
 Individual articles and case studies should have corresponding localized routes when translations exist.
 
@@ -431,7 +429,6 @@ src/
     education.ts
     certifications.ts
     services.ts
-    cv.ts
     site.ts
   layouts/
   pages/
@@ -440,7 +437,6 @@ src/
     work/
     writing/
     services.astro
-    cv.astro
     pt/
   styles/
   utils/
@@ -465,9 +461,9 @@ Examples:
 - Social links.
 - Consulting services.
 - Mentoring programmes.
-- CV details.
+- Professional summary and employment history.
 
-Do not duplicate information between the homepage, About page and CV.
+Keep the homepage concise and put the full professional background on the About page.
 
 ## 6.4 Content collections
 
@@ -722,7 +718,7 @@ Scope:
 - Work and selected case studies.
 - Writing index and article pages.
 - Services page with consulting and mentoring tracks.
-- English CV.
+- Professional experience and certifications on the About page.
 - Portuguese homepage and core pages.
 - Language switcher.
 - Light/dark theme.
@@ -758,7 +754,6 @@ Scope:
 - Contextual CTAs.
 - RSS feed.
 - Sitemap.
-- Portuguese CV.
 - Dynamic Open Graph images.
 - Improved search engine metadata.
 - Additional content and accessibility tests.
@@ -833,7 +828,7 @@ These are separate products or integrations, not prerequisites for a successful 
 - Clear professional positioning.
 - Accurate and consistent profile.
 - Strong selected-work presentation.
-- Complete contact and CV information.
+- Complete professional background and contact information.
 
 ## Editorial
 - A repeatable publishing workflow.

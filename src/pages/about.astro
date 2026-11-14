@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteContent, type Locale } from '../data/siteContent';
+
+const locale: Locale = 'en';
+const content = siteContent[locale];
+---
+
+<BaseLayout title={`About | ${content.name}`} description={content.description} locale={locale}>
+  <section class="max-w-4xl">
+    <p class="section-label">About</p>
+    <h1 class="section-title mt-3 text-4xl sm:text-5xl">Technical leadership rooted in delivery.</h1>
+    <p class="mt-6 text-lg text-[var(--color-muted)]">{content.intro}</p>
+  </section>
+
+  <section class="mt-12 grid gap-6 lg:grid-cols-2">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-foreground)]">What I bring</h2>
+      <ul class="mt-6 space-y-4 text-[var(--color-muted)]">
+        <li>• Clear architecture thinking without over-engineering.</li>
+        <li>• Practical delivery experience across cloud, APIs and platform decisions.</li>
+        <li>• Leadership that helps teams make better technical choices with less friction.</li>
+        <li>• Mentoring grounded in real engineering practice and honest trade-offs.</li>
+      </ul>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Background</h2>
+      <p class="mt-6 text-[var(--color-muted)]">
+        I have spent the last seven years working in software engineering, platform delivery and technical leadership. My work sits between architecture and execution: helping teams build systems that are reliable, understandable and easy to evolve.
+      </p>
+    </div>
+  </section>
+
+  <section class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Experience</h2>
+      <ul class="mt-6 space-y-3 text-[var(--color-muted)]">
+        <li>• Technical Lead in product and platform engineering.</li>
+        <li>• Architecture reviews and system design guidance.</li>
+        <li>• Cloud engineering and DevOps modernization work.</li>
+      </ul>
+    </div>
+
+    <div class="card p-8">
+      <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Core strengths</h2>
+      <ul class="mt-6 space-y-3 text-[var(--color-muted)]">
+        <li>• Architecture strategy and trade-off analysis.</li>
+        <li>• Cloud and infrastructure guidance.</li>
+        <li>• Delivery quality and engineering leadership support.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mt-12 card p-8">
+    <p class="section-label">Certifications</p>
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+      {content.certifications.map((cert) => (
+        <li class="rounded-xl border border-[var(--color-border)] bg-[var(--color-accent-soft)] px-4 py-3 text-sm text-[var(--color-foreground)]">{cert}</li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

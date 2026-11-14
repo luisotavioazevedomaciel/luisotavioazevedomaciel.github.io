@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteContent, type Locale } from '../../data/siteContent';
+
+const locale: Locale = 'pt';
+const content = siteContent[locale];
+---
+
+<BaseLayout title={`${content.name} | ${content.title}`} description={content.description} locale={locale} compactTop>
+  <section class="grid grid-cols-1 gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+    <div class="min-w-0">
+      <span class="eyebrow">{content.hero.eyebrow}</span>
+      <h1 class="mt-6 text-4xl font-black tracking-tight text-[var(--color-foreground)] sm:text-5xl lg:text-6xl">
+        {content.hero.title}<br />
+        <span class="text-[var(--color-accent)]">{content.hero.subtitle}</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-[var(--color-muted)]">{content.intro}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href={content.hero.primaryHref} class="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">
+          {content.hero.primaryCta}
+        </a>
+        <a href={content.hero.secondaryHref} class="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
+          {content.hero.secondaryCta}
+        </a>
+      </div>
+    </div>
+
+    <div class="card min-w-0 p-6">
+      <p class="section-label">Perfil</p>
+      <div class="mt-5 space-y-5">
+        <div>
+          <p class="text-sm uppercase tracking-[0.14em] text-[var(--color-muted)]">Cargo</p>
+          <p class="mt-1 text-xl font-semibold text-[var(--color-foreground)]">{content.title}</p>
+        </div>
+        <div>
+          <p class="text-sm uppercase tracking-[0.14em] text-[var(--color-muted)]">Local</p>
+          <p class="mt-1 text-base text-[var(--color-foreground)]">Portugal</p>
+        </div>
+        <div>
+          <p class="text-sm uppercase tracking-[0.14em] text-[var(--color-muted)]">Foco</p>
+          <p class="mt-1 text-base text-[var(--color-foreground)]">Arquitetura, cloud, entrega e mentoria.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+    {content.stats.map((stat) => (
+      <div class="card p-5">
+        <p class="text-3xl font-black tracking-tight text-[var(--color-accent)]">{stat.title}</p>
+        <p class="mt-2 text-sm text-[var(--color-muted)]">{stat.description}</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="mt-20">
+    <p class="section-label">Projetos</p>
+    <h2 class="section-title">Trabalhos e resultados de engenharia que importam.</h2>
+    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {content.caseStudies.map((project) => (
+        <article class="card p-6">
+          <div class="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span class="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent)]">{tag}</span>
+            ))}
+          </div>
+          <h3 class="mt-5 text-xl font-semibold text-[var(--color-foreground)]">{project.title}</h3>
+          <p class="mt-3 text-sm text-[var(--color-muted)]">{project.summary}</p>
+          <p class="mt-4 text-sm font-medium text-[var(--color-foreground)]">{project.outcome}</p>
+          <a href={`/pt/projetos/${project.slug}/`} class="mt-5 inline-flex text-sm font-semibold text-[var(--color-accent)]">Ver estudo →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mt-20">
+    <p class="section-label">Artigos</p>
+    <h2 class="section-title">Escritos sobre arquitetura, entrega e liderança técnica.</h2>
+    <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {content.articles.map((article) => (
+        <article class="card p-6">
+          <span class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">{article.category}</span>
+          <h3 class="mt-4 text-xl font-semibold text-[var(--color-foreground)]">{article.title}</h3>
+          <p class="mt-3 text-sm text-[var(--color-muted)]">{article.excerpt}</p>
+          <div class="mt-5 flex items-center justify-between text-xs text-[var(--color-muted)]">
+            <span>{article.readTime}</span>
+            <a href={`/pt/artigos/${article.slug}/`} class="font-semibold text-[var(--color-accent)]">Ler →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mt-20 grid grid-cols-1 gap-8 lg:grid-cols-2">
+    <div class="card p-8">
+      <p class="section-label">Consultoria</p>
+      <h2 class="section-title">Consultoria em engenharia de software e arquitetura</h2>
+      <p class="mt-4 text-[var(--color-muted)]">Ajudo times a desenhar sistemas, reduzir risco de entrega e operar com mais confiança em cloud e outros contextos.</p>
+      <ul class="mt-6 space-y-3 text-sm text-[var(--color-foreground)]">
+        {content.services.slice(0, 3).map((service) => (
+          <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]"></span>{service.title}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="card p-8">
+      <p class="section-label">Mentoria</p>
+      <h2 class="section-title">Mentoria em engenharia de software</h2>
+      <p class="mt-4 text-[var(--color-muted)]">Mentoria prática para engenheiros que querem desenvolver julgamento técnico e assumir liderança com mais segurança.</p>
+      <ul class="mt-6 space-y-3 text-sm text-[var(--color-foreground)]">
+        {content.mentoringStages.map((stage) => (
+          <li class="flex gap-3"><span class="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]"></span>{stage.title}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="mt-20 card p-8 sm:p-10">
+    <p class="section-label">Sobre</p>
+    <h2 class="section-title">Liderança técnica com contexto de negócio.</h2>
+    <p class="mt-5 max-w-3xl text-lg text-[var(--color-muted)]">Apoio fundadores, gestores e times de tecnologia a tomar decisões de engenharia mais claras, executáveis e confiáveis.</p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href="/pt/sobre/" class="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">Saiba mais</a>
+      <a href="/pt/contato/" class="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Contato</a>
+    </div>
+  </section>
+</BaseLayout>
