@@ -6,11 +6,14 @@ import { siteContent, type Locale } from '../data/siteContent';
 const { locale = 'en' } = Astro.props as { locale?: Locale };
 const content = siteContent[locale];
 ---
-<header class="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-background)]/80 backdrop-blur-sm">
+<header
+  data-site-header
+  class="sticky top-0 z-40 border-b border-transparent bg-[var(--color-background)]/80 backdrop-blur-sm transition-colors data-[scrolled='true']:border-[var(--color-border)]"
+>
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-3 sm:gap-4 sm:px-6 sm:py-4 lg:px-8">
     <a
       href={locale === 'pt' ? '/pt/' : '/'}
-      aria-label={locale === 'pt' ? 'Página inicial de Luís Otávio Azevedo Maciel' : 'Home page of Luís Otávio Azevedo Maciel'}
+      aria-label={locale === 'pt' ? 'Página inicial de Luis Maciel' : 'Home page of Luis Maciel'}
       class="grid size-10 shrink-0 place-items-center rounded-lg border border-[var(--color-border)] bg-[var(--color-accent-soft)] text-sm font-bold text-[var(--color-accent)] transition hover:border-[var(--color-accent)]"
     >
       LM
@@ -23,8 +26,11 @@ const content = siteContent[locale];
         </a>
       ))}
     </nav>
-    <a href={content.contactCta.href} class="hidden rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-on-accent)] transition hover:bg-[var(--color-accent-hover)] md:inline-flex">
+    <a href={content.contactCta.href} class="hidden min-h-11 items-center gap-2 rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-on-accent)] transition hover:bg-[var(--color-accent-hover)] md:inline-flex">
       {content.contactCta.label}
+      <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="size-4">
+        <path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
     </a>
 
     <div class="flex items-center gap-2">
@@ -38,8 +44,11 @@ const content = siteContent[locale];
               {item.label}
             </a>
           ))}
-          <a href={content.contactCta.href} class="rounded-lg px-3 py-2 font-semibold text-[var(--color-accent)] transition hover:bg-[var(--color-accent-soft)]">
+          <a href={content.contactCta.href} class="flex min-h-11 items-center justify-between rounded-lg px-3 py-2 font-semibold text-[var(--color-accent)] transition hover:bg-[var(--color-accent-soft)]">
             {content.contactCta.label}
+            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="size-4">
+              <path d="M5 15 15 5M6 5h9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </a>
         </nav>
       </details>
@@ -48,3 +57,14 @@ const content = siteContent[locale];
     </div>
   </div>
 </header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+
+  const updateHeader = () => {
+    header?.setAttribute('data-scrolled', window.scrollY > 16 ? 'true' : 'false');
+  };
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+</script>

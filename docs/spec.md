@@ -2,7 +2,7 @@
 ## Bilingual Software Engineering Portfolio & Consulting Platform
 
 **Status:** Ready for phased implementation  
-**Revision:** v4.4 — mentoring scope aligned with current Technical Lead experience  
+**Revision:** v4.6 — conversion-focused homepage hierarchy and verifiable credibility anchors
 **Primary objective:** Establish a credible professional engineering presence, publish practical technical content, attract consulting opportunities, and build a mentoring practice.
 
 ---
@@ -27,7 +27,7 @@ Technical Lead | Software Architecture | Cloud Engineering
 
 **Core message**
 
-Building better software. Growing better engineers.
+Creating solutions. Guiding engineers.
 
 **Supporting message**
 
@@ -50,11 +50,11 @@ Use a centralized profile data source. Do not hardcode profile information acros
 
 **Profile details**
 
-- Name: Luís Otávio Azevedo Maciel.
+- Name: Luis Maciel.
 - Location: Portugal.
 - Availability: International and remote opportunities.
 - Background: Computer Engineering.
-- Experience: 7+ years in software engineering.
+- Experience: 8+ years in software engineering.
 - Current role: Technical Lead.
 - Previous experience: Software engineering and technical leadership.
 - Languages: Portuguese and English.
@@ -68,6 +68,7 @@ Use a centralized profile data source. Do not hardcode profile information acros
 - HashiCorp Certified: Terraform Associate (003).
 
 Keep certifications and employment history editable through data files.
+Show one icon for each certification. Use replaceable placeholder icons initially, and keep each icon reference alongside its certification data.
 
 Do not publish confidential employer information, proprietary architecture, internal metrics or identifiable customer/vendor details without authorization. Case studies must be anonymized where necessary.
 
@@ -258,7 +259,11 @@ Junior mentoring may have strong demand but lower purchasing power. Validate wil
 
 The name/brand links to the localized home route; do not include a separate Home item.
 
-Primary CTA: Contact. Keep Contact visually distinct from the main navigation links.
+The compact navigation CTA should remain visually distinct from the main navigation links and keep its text label visible. It may use **Get in touch**.
+
+The navigation's bottom divider should be hidden at the top of the page and revealed as the visitor scrolls. The reveal should be subtle and not shift layout or introduce a persistent heavy visual line.
+
+Place a single moon-icon theme control at the top-right of the page. It must have no visible text, but must expose an accessible name and state to assistive technology.
 
 ## 4.2 Routes
 
@@ -280,16 +285,37 @@ Do not generate a translation route merely because the other language version ex
 
 Recommended section order:
 
-1. Hero: identity, positioning, Contact CTA, link to selected work and a portrait.
+1. First main section: a single viewport-conscious hero that combines the portrait, headline, supporting positioning, primary and secondary actions, and the compact stats row.
 2. Services: one concise, visually highlighted introduction to consulting and mentoring, linking to the Services page.
 3. Selected Work: up to two strong engineering case studies, with a link to all work.
 4. Writing: up to two recent or featured articles, with a link to all writing.
 
+**Hero requirements**
+
+- The headline must be **Creating solutions. Guiding engineers.**
+- The main CTA must be **Explore services** and must link to the Services page.
+- A secondary CTA may provide access to selected work or contact, but it must not compete with the main CTA.
+- The stats must be visually integrated into the first main section. Do not place a divider line above the stats or treat them as a separate bordered section.
+- Keep the combined hero and stats compact enough to fit comfortably within a typical visitor viewport, while preserving clear spacing and responsive reflow.
+
+**Homepage stats**
+
+Use four verifiable credibility anchors:
+
+| Value | Label |
+|---|---|
+| 8+ | Years — Software engineering & technical leadership |
+| 4× | Certified — Azure DevOps Expert & Terraform Associate |
+| 20+ | Projects — Distributed & cloud systems delivered |
+| ∞ | Problems solved |
+
+Keep 20+ Projects as a stable anchor. The remaining numeric anchors must represent owner-verified credentials or experience, not estimates.
+
 Use a compact LM monogram as the localized home link in the navigation, with an accessible name identifying the home page and owner.
 
-Keep the homepage focused. Do not add a stats strip, separate profile summary, duplicated About summary, or full Consulting and Mentoring sections. Detailed professional background and service information belong on their dedicated pages.
+Keep the homepage focused. Do not add a separate profile summary, duplicated About summary, or full Consulting and Mentoring sections. Detailed professional background and service information belong on their dedicated pages. Stats must be based on owner-verified data rather than estimates presented as facts.
 
-Use a restrained forest-green accent with neutral surfaces in both light and dark themes. Apply semantic theme tokens consistently to links, buttons, hover states and highlights; do not use blue as the accent.
+Use a monochrome visual style: white surfaces in light mode, black surfaces in dark mode, and neutral gray tones for hierarchy and borders. Apply semantic theme tokens consistently to text, links, buttons, hover states and highlights; avoid introducing a competing accent color.
 
 ## 4.4 Services page
 
@@ -531,8 +557,8 @@ Validate content at build time. Do not maintain redundant fields such as both `d
 - Strong typography and readable content.
 - Generous whitespace.
 - Clear visual hierarchy.
-- Subtle use of color.
-- Responsive from mobile upwards.
+- Monochrome white-and-black palette with neutral grays.
+- Responsive from mobile upwards; all pages and shared components must remain usable on small screens.
 
 Avoid a generic corporate template or an overly decorative developer portfolio.
 
@@ -543,8 +569,17 @@ Avoid a generic corporate template or an overly decorative developer portfolio.
 - Allow manual switching.
 - Persist the user's preference locally.
 - Avoid theme flashes during page load.
+- Use a single moon-icon button at the top-right as the theme control, with no visible text and an accessible name/state.
 
-## 7.3 Components
+## 7.3 Homepage stats and motion
+
+- Show the four homepage anchors: 8+ Years, 4× Certified, 20+ Projects and ∞ Problems Solved.
+- Keep their values and labels in editable profile data; do not invent or infer totals.
+- The 8+, 4× and 20+ numeric values may count up when the stats enter view, but the final values must remain visible. Render ∞ as a stable symbolic final value.
+- Respect `prefers-reduced-motion`; when reduced motion is requested, display all final values without count-up animation.
+- Ensure the metrics and their labels are understandable without animation and to assistive technology.
+
+## 7.4 Components
 
 Build reusable components for:
 
@@ -565,6 +600,17 @@ Build reusable components for:
 - Theme switcher.
 
 Do not introduce a component abstraction unless it is reused or meaningfully improves maintainability.
+
+The footer should be minimal: do not repeat the owner's name or provide page navigation there. Show only a small set of relevant social/contact icons, each with an accessible name and visible keyboard focus.
+
+In light mode, use a black footer background with light icons and controls. In dark mode, retain a cohesive black or very dark surface treatment. The footer should remain visually distinct from the main content without becoming a large promotional block.
+
+## 7.5 Responsive behavior
+
+- Design and verify layouts at narrow mobile, tablet and desktop widths.
+- Navigation, theme control, CTAs, stats, cards and footer links must fit and remain usable without horizontal scrolling.
+- Reflow multi-column content for small screens and keep text readable without requiring zoom.
+- Make interactive controls comfortably operable by touch and preserve keyboard access and visible focus.
 
 ---
 
@@ -598,6 +644,7 @@ Target WCAG 2.2 AA.
 - Reduced-motion support.
 - Correct heading hierarchy.
 - Screen-reader-friendly navigation.
+- Icon-only controls and links have accessible names.
 
 ## 8.3 Performance targets
 
@@ -647,6 +694,7 @@ If a contact form is introduced later, select a suitable provider and document i
 
 **End-to-end tests**
 - Homepage navigation.
+- Homepage stats render their final 8+, 4×, 20+ and ∞ values, with reduced-motion behavior respected.
 - Language switching.
 - Article navigation.
 - Service navigation.
@@ -657,6 +705,7 @@ If a contact form is introduced later, select a suitable provider and document i
 ## 10.2 Manual checks
 
 - Mobile and desktop layouts.
+- Small-screen navigation, controls, stats and footer usability with no horizontal overflow.
 - Keyboard-only navigation.
 - Screen reader basics.
 - Color contrast.
@@ -715,7 +764,7 @@ Scope:
 - Astro project setup.
 - TypeScript and Tailwind.
 - Responsive layout.
-- Concise English and Portuguese homepages with a portrait, up to two Work and two Writing previews, a highlighted Services introduction directly after the hero and clear Contact access; use an accessible LM monogram for the home link, with no stats strip or separate profile summary.
+- Concise English and Portuguese homepages with a portrait, the **Creating solutions. Guiding engineers.** headline, a primary **Explore services** CTA, owner-verified credibility stats, up to two Work and two Writing previews, and a highlighted Services introduction; use an accessible LM monogram for the home link, with no separate profile summary.
 - About page.
 - Work and selected case studies.
 - Writing index and article pages.
@@ -723,7 +772,8 @@ Scope:
 - Professional experience and certifications on the About page.
 - Portuguese homepage and core pages.
 - Language switcher.
-- Light/dark theme.
+- Monochrome light/dark theme with an accessible moon-icon control.
+- Minimal icon-only social/contact footer.
 - Contact links.
 - Basic SEO and metadata.
 - GitHub Pages deployment.
@@ -738,7 +788,7 @@ Scope:
 - Analytics dashboards.
 
 **Definition of Done:**
-A visitor can understand your professional positioning, review your experience on the About page, explore selected work and writing, find both service offerings and contact you. The homepage presents this information without a stats strip or repeated page summaries.
+A visitor can understand your professional positioning, review your experience and certifications on the About page, explore selected work and writing, find both service offerings and contact you. The homepage presents the **Creating solutions. Guiding engineers.** headline, an **Explore services** primary CTA and four verified credibility anchors within the first main section, without repeated page summaries. All key journeys work on mobile.
 
 ## Phase 2 — Editorial platform
 

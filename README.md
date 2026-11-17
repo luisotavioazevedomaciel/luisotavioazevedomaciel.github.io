@@ -1,4 +1,4 @@
-# Luís Otávio Azevedo Maciel — Portfolio
+# Luis Maciel — Portfolio
 
 Bilingual professional portfolio built with Astro and Tailwind CSS, deployed as a static site to GitHub Pages.
 

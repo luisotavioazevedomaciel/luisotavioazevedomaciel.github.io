@@ -2,21 +2,22 @@
 import { type Locale } from '../data/siteContent';
 
 const { locale = 'en' } = Astro.props as { locale?: Locale };
-const label = locale === 'en' ? 'Dark mode' : 'Tema escuro';
-const visibleLabel = locale === 'en' ? 'Dark' : 'Escuro';
+const darkLabel = locale === 'en' ? 'Switch to dark theme' : 'Ativar tema escuro';
+const lightLabel = locale === 'en' ? 'Switch to light theme' : 'Ativar tema claro';
 ---
+
 <button
   id="theme-toggle"
   type="button"
-  role="switch"
-  aria-label={label}
-  aria-checked="false"
-  class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm font-medium text-[var(--color-foreground)] transition hover:border-[var(--color-accent)]"
+  aria-label={darkLabel}
+  aria-pressed="false"
+  data-dark-label={darkLabel}
+  data-light-label={lightLabel}
+  class="grid size-11 shrink-0 place-items-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-foreground)] transition hover:border-[var(--color-foreground)]"
 >
-  <span>{visibleLabel}</span>
-  <span aria-hidden="true" class="theme-track inline-flex h-5 w-9 items-center rounded-full bg-[var(--color-highlight)] p-0.5 transition-colors">
-    <span class="theme-thumb h-4 w-4 rounded-full bg-[var(--color-surface)] shadow-sm transition-transform"></span>
-  </span>
+  <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+    <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.804a6 6 0 0 0 8.268 8.268c.344-.215.826-.003.803.4Z" />
+  </svg>
 </button>
 
 <script>
@@ -24,26 +25,17 @@ const visibleLabel = locale === 'en' ? 'Dark' : 'Escuro';
   const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
 
   if (button) {
-    const syncSwitch = () => {
-      button.setAttribute('aria-checked', String(root.dataset.theme === 'dark'));
+    const syncButton = () => {
+      const isDark = root.dataset.theme === 'dark';
+      button.setAttribute('aria-pressed', String(isDark));
+      button.setAttribute('aria-label', isDark ? button.dataset.lightLabel ?? '' : button.dataset.darkLabel ?? '');
     };
 
-    syncSwitch();
+    syncButton();
     button.addEventListener('click', () => {
-      const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      root.dataset.theme = theme;
-      localStorage.setItem('theme', theme);
-      syncSwitch();
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', root.dataset.theme);
+      syncButton();
     });
   }
 </script>
-
-<style>
-  #theme-toggle[aria-checked='true'] .theme-track {
-    background: var(--color-accent);
-  }
-
-  #theme-toggle[aria-checked='true'] .theme-thumb {
-    transform: translateX(1rem);
-  }
-</style>

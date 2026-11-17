@@ -26,9 +26,26 @@ export type Article = {
   category: string;
 };
 
+export type Certification = {
+  label: string;
+  icon: 'cloud' | 'code' | 'pipeline' | 'cube';
+};
+
+export type ContactLink = {
+  label: string;
+  href: string;
+  icon: 'email' | 'linkedin';
+};
+
+export const profileMetrics = {
+  yearsExperience: 8,
+  certifications: 4,
+  projectsDelivered: 20
+} as const;
+
 export const siteContent = {
   en: {
-    name: 'Luís Otávio Azevedo Maciel',
+    name: 'Luis Maciel',
     title: 'Technical Lead | Senior Software Engineer',
     description:
       'I help engineering teams design, modernize and build reliable software systems. I also mentor software engineers who want to grow into stronger technical leaders.',
@@ -38,18 +55,27 @@ export const siteContent = {
       { label: 'Writing', href: '/writing/' },
       { label: 'Services', href: '/services/' }
     ] as NavItem[],
-    contactCta: { label: 'Contact', href: '/contact/' },
+    contactCta: { label: 'Get in touch', href: '/contact/' },
     hero: {
-      eyebrow: 'Software Engineering',
-      title: 'Building better software.',
-      subtitle: 'Growing better engineers.',
-      primaryCta: 'Let’s discuss your project',
+      eyebrow: 'Software Engineering & Technical Leadership',
+      title: 'Creating solutions.',
+      subtitle: 'Guiding engineers.',
+      primaryCta: 'Explore services',
       secondaryCta: 'See selected work',
-      primaryHref: '/contact/',
+      primaryHref: '/services/',
       secondaryHref: '/work/'
     },
     intro:
-      'I am a Technical Lead with 7+ years of software engineering experience helping teams design resilient systems, simplify delivery and grow stronger engineering habits.',
+      'Technical Lead with 8+ years of software engineering experience helping teams design resilient systems, simplify delivery and grow stronger engineering habits.',
+    stats: {
+      heading: 'Experience and credentials',
+      items: [
+        { value: profileMetrics.yearsExperience, suffix: '+', label: 'Years of Experience' },
+        { value: profileMetrics.certifications, suffix: '×', label: 'Certifications' },
+        { value: profileMetrics.projectsDelivered, suffix: '+', label: 'Projects Delivered' },
+        { value: '∞', suffix: '', label: 'Problems Solved' }
+      ]
+    },
     services: [
       {
         title: 'Software Architecture & System Design',
@@ -147,19 +173,18 @@ export const siteContent = {
       }
     ] as Article[],
     certifications: [
-      'Microsoft Azure Fundamentals (AZ-900)',
-      'Microsoft Azure Developer Associate (AZ-204)',
-      'Microsoft DevOps Engineer Expert (AZ-400)',
-      'HashiCorp Certified: Terraform Associate (003)'
-    ],
+      { label: 'Microsoft Azure Fundamentals (AZ-900)', icon: 'cloud' },
+      { label: 'Microsoft Azure Developer Associate (AZ-204)', icon: 'code' },
+      { label: 'Microsoft DevOps Engineer Expert (AZ-400)', icon: 'pipeline' },
+      { label: 'HashiCorp Certified: Terraform Associate (003)', icon: 'cube' }
+    ] as Certification[],
     contactLinks: [
-      { label: 'Email', href: 'mailto:otavioazevedo7@gmail.com' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisotavioazevedomaciel/' }
-    ],
-    footer: 'Building better software. Growing better engineers.'
+      { label: 'Email', href: 'mailto:otavioazevedo7@gmail.com', icon: 'email' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisotavioazevedomaciel/', icon: 'linkedin' }
+    ] as ContactLink[]
   },
   pt: {
-    name: 'Luís Otávio Azevedo Maciel',
+    name: 'Luis Maciel',
     title: 'Lider Técnico | Engenheiro de Software Senior',
     description:
       'Ajudo times de engenharia a desenhar, modernizar e construir sistemas confiáveis. Também mentoro engenheiros que querem crescer em liderança técnica.',
@@ -169,18 +194,27 @@ export const siteContent = {
       { label: 'Artigos', href: '/pt/artigos/' },
       { label: 'Serviços', href: '/pt/servicos/' }
     ] as NavItem[],
-    contactCta: { label: 'Contato', href: '/pt/contato/' },
+    contactCta: { label: 'Entre em contato', href: '/pt/contato/' },
     hero: {
-      eyebrow: 'Engenharia de Software',
-      title: 'Construindo software melhor.',
-      subtitle: 'Ajudando engenheiros a evoluir.',
-      primaryCta: 'Vamos conversar sobre seu projeto',
-      secondaryCta: 'Ver projetos',
-      primaryHref: '/pt/contato/',
+      eyebrow: 'Engenharia de Software & Liderança Técnica',
+      title: 'Criando soluções.',
+      subtitle: 'Guiando engenheiros.',
+      primaryCta: 'Explorar serviços',
+      secondaryCta: 'Ver projetos selecionados',
+      primaryHref: '/pt/servicos/',
       secondaryHref: '/pt/projetos/'
     },
     intro:
-      'Sou um Technical Lead com mais de 7 anos de experiência em engenharia de software, ajudando times a criar sistemas resilientes, simplificar entrega e desenvolver hábitos de engenharia mais fortes.',
+      'Technical Lead com mais de 8 anos de experiência em engenharia de software, ajudando times a criar sistemas resilientes, simplificar entrega e desenvolver melhores hábitos de engenharia.',
+    stats: {
+      heading: 'Experiência e credenciais',
+      items: [
+        { value: profileMetrics.yearsExperience, suffix: '+', label: 'Anos de Experiência' },
+        { value: profileMetrics.certifications, suffix: '×', label: 'Certificações' },
+        { value: profileMetrics.projectsDelivered, suffix: '+', label: 'Projetos Entregues' },
+        { value: '∞', suffix: '', label: 'Problemas Resolvidos' }
+      ]
+    },
     services: [
       {
         title: 'Arquitetura de Software e Design de Sistemas',
@@ -278,16 +312,15 @@ export const siteContent = {
       }
     ] as Article[],
     certifications: [
-      'Microsoft Azure Fundamentals (AZ-900)',
-      'Microsoft Azure Developer Associate (AZ-204)',
-      'Microsoft DevOps Engineer Expert (AZ-400)',
-      'HashiCorp Certified: Terraform Associate (003)'
-    ],
+      { label: 'Microsoft Azure Fundamentals (AZ-900)', icon: 'cloud' },
+      { label: 'Microsoft Azure Developer Associate (AZ-204)', icon: 'code' },
+      { label: 'Microsoft DevOps Engineer Expert (AZ-400)', icon: 'pipeline' },
+      { label: 'HashiCorp Certified: Terraform Associate (003)', icon: 'cube' }
+    ] as Certification[],
     contactLinks: [
-      { label: 'Email', href: 'mailto:otavioazevedo7@gmail.com' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisotavioazevedomaciel/' }
-    ],
-    footer: 'Construindo software melhor. Ajudando engenheiros a evoluir.'
+      { label: 'Email', href: 'mailto:otavioazevedo7@gmail.com', icon: 'email' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisotavioazevedomaciel/', icon: 'linkedin' }
+    ] as ContactLink[]
   }
 } as const;
 

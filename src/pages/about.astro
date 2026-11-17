@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CertificationList from '../components/CertificationList.astro';
 import { siteContent, type Locale } from '../data/siteContent';
 
 const locale: Locale = 'en';
@@ -27,7 +28,7 @@ const content = siteContent[locale];
     <div class="card p-8">
       <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Background</h2>
       <p class="mt-6 text-[var(--color-muted)]">
-        I have spent the last seven years working in software engineering, platform delivery and technical leadership. My work sits between architecture and execution: helping teams build systems that are reliable, understandable and easy to evolve.
+        I have spent the last eight years working in software engineering, platform delivery and technical leadership. My work sits between architecture and execution: helping teams build systems that are reliable, understandable and easy to evolve.
       </p>
     </div>
   </section>
@@ -54,10 +55,6 @@ const content = siteContent[locale];
 
   <section class="mt-12 card p-8">
     <p class="section-label">Certifications</p>
-    <ul class="mt-6 grid gap-3 sm:grid-cols-2">
-      {content.certifications.map((cert) => (
-        <li class="rounded-xl border border-[var(--color-border)] bg-[var(--color-accent-soft)] px-4 py-3 text-sm text-[var(--color-foreground)]">{cert}</li>
-      ))}
-    </ul>
+    <CertificationList certifications={content.certifications} />
   </section>
 </BaseLayout>
