@@ -1,26 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { siteContent, type Locale } from '../../data/siteContent';
-
-const locale: Locale = 'pt';
-const content = siteContent[locale];
+import ContactPage from '../../components/ContactPage.astro';
 ---
 
-<BaseLayout title={`Contato | ${content.name}`} description="Entre em contato para consultoria ou mentoria." locale={locale}>
-  <section class="max-w-3xl">
-    <p class="section-label">Contato</p>
-    <h1 class="section-title mt-3 text-4xl sm:text-5xl">Vamos falar sobre o desafio de engenharia da sua equipe.</h1>
-    <p class="mt-5 text-lg text-[var(--color-muted)]">Se você precisa de orientação em arquitetura, avaliação técnica ou apoio em mentoria, fico feliz em entender melhor seu contexto.</p>
-  </section>
-
-  <section class="mt-12 card p-8">
-    <div class="grid gap-4 sm:grid-cols-2">
-      {content.contactLinks.map((link) => (
-        <a href={link.href} class="rounded-xl border border-[var(--color-border)] bg-[var(--color-accent-soft)] p-5 text-[var(--color-foreground)] transition hover:border-[var(--color-accent)]">
-          <span class="text-sm uppercase tracking-[0.14em] text-[var(--color-muted)]">{link.label}</span>
-          <p class="mt-3 text-lg font-semibold">{link.href.startsWith('http') ? link.href.replace('https://', '').replace('http://', '') : link.href}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-</BaseLayout>
+<ContactPage locale="pt" />

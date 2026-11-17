@@ -1,0 +1,157 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profileMetrics, siteContent, type Locale } from '../data/siteContent';
+import { getUi } from '../i18n/ui';
+
+const { locale } = Astro.props as { locale: Locale };
+const content = siteContent[locale];
+const copy = getUi(locale).services;
+const services = content.services;
+const credibility = services.mentoring.credibility.replace(
+  '{years}',
+  String(profileMetrics.yearsExperience),
+);
+---
+
+<BaseLayout title={copy.title} description={copy.description} locale={locale}>
+  <header class="mb-10 max-w-3xl sm:mb-14">
+    <p class="section-label">{copy.eyebrow}</p>
+    <h1 class="section-title mt-3 text-4xl sm:text-5xl">{copy.headline}</h1>
+  </header>
+
+  <div class="space-y-10 sm:space-y-14">
+    <section id="consulting" class="card p-6 sm:p-8 lg:p-10" aria-labelledby="consulting-title">
+      <header class="max-w-4xl">
+        <p class="section-label">{copy.consultingTrack}</p>
+        <h2 id="consulting-title" class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-foreground)] sm:text-4xl">
+          {copy.consultingTitle}
+        </h2>
+        <p class="mt-4 text-lg text-[var(--color-muted)]">{services.positioning}</p>
+        <p class="mt-4 text-sm text-[var(--color-muted)]">
+          <strong class="text-[var(--color-foreground)]">{copy.audience}:</strong> {services.audience}
+        </p>
+      </header>
+
+      <div class="mt-9">
+        <h3 class="text-xl font-semibold text-[var(--color-foreground)]">{copy.serviceAreas}</h3>
+        <div class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {services.areas.map((area) => (
+            <article class="rounded-xl border border-[var(--color-border)] p-5">
+              <h4 class="text-lg font-semibold text-[var(--color-foreground)]">{area.title}</h4>
+              <p class="mt-2 text-sm text-[var(--color-muted)]">{area.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-9">
+        <h3 class="text-xl font-semibold text-[var(--color-foreground)]">{copy.packages}</h3>
+        <div class="mt-4 grid gap-4 lg:grid-cols-3">
+          {services.packages.map((pkg) => (
+            <article class="rounded-xl bg-[var(--color-accent-soft)] p-5">
+              <h4 class="text-lg font-semibold text-[var(--color-foreground)]">{pkg.title}</h4>
+              <p class="mt-3 text-sm text-[var(--color-muted)]">
+                <strong class="text-[var(--color-foreground)]">{copy.scope}:</strong> {pkg.scope}
+              </p>
+              <p class="mt-4 text-sm font-semibold text-[var(--color-foreground)]">{copy.deliverables}:</p>
+              <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--color-muted)]">
+                {pkg.deliverables.map((deliverable) => <li>{deliverable}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <a
+        href={content.contactCta.href}
+        class="mt-8 inline-flex min-h-11 items-center rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition hover:bg-[var(--color-accent-hover)]"
+      >
+        {copy.consultingCta}
+      </a>
+    </section>
+
+    <section id="mentoring" class="card bg-[var(--color-accent-soft)] p-6 sm:p-8 lg:p-10" aria-labelledby="mentoring-title">
+      <header class="max-w-4xl">
+        <p class="section-label">{copy.mentoringTrack}</p>
+        <h2 id="mentoring-title" class="mt-3 text-3xl font-bold tracking-tight text-[var(--color-foreground)] sm:text-4xl">
+          {copy.mentoringTitle}
+        </h2>
+        <p class="mt-4 text-lg text-[var(--color-muted)]">{services.mentoring.positioning}</p>
+        <p class="mt-4 text-sm text-[var(--color-muted)]">{credibility}</p>
+      </header>
+
+      <div class="mt-9 grid gap-5 xl:grid-cols-2">
+        {services.mentoring.groups.map((group) => (
+          <article class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:p-6">
+            <h3 class="text-xl font-semibold text-[var(--color-foreground)]">
+              {group.id === 'career' ? copy.careerGrowth : copy.international}
+            </h3>
+            <p class="mt-3 text-sm text-[var(--color-muted)]">
+              <strong class="text-[var(--color-foreground)]">{copy.audience}:</strong> {group.audience}
+            </p>
+
+            {group.stages.length > 0 && (
+              <div class="mt-5 space-y-3">
+                {group.stages.map((stage) => (
+                  <section class="rounded-lg border border-[var(--color-border)] p-4">
+                    <h4 class="font-semibold text-[var(--color-foreground)]">{stage.title}</h4>
+                    <p class="mt-2 text-sm text-[var(--color-muted)]">{stage.description}</p>
+                  </section>
+                ))}
+              </div>
+            )}
+
+            {group.focusAreas.length > 0 && (
+              <div class="mt-5">
+                <h4 class="font-semibold text-[var(--color-foreground)]">{copy.focusAreas}</h4>
+                <ul class="mt-2 list-disc space-y-2 pl-5 text-sm text-[var(--color-muted)]">
+                  {group.focusAreas.map((focusArea) => <li>{focusArea}</li>)}
+                </ul>
+              </div>
+            )}
+
+            <div class="mt-5">
+              <h4 class="font-semibold text-[var(--color-foreground)]">{copy.deliverables}</h4>
+              <ul class="mt-2 list-disc space-y-2 pl-5 text-sm text-[var(--color-muted)]">
+                {group.deliverables.map((deliverable) => <li>{deliverable}</li>)}
+              </ul>
+            </div>
+
+            {group.disclaimer && (
+              <p class="mt-5 rounded-lg bg-[var(--color-accent-soft)] p-4 text-sm text-[var(--color-muted)]">
+                <strong class="text-[var(--color-foreground)]">{copy.disclaimer}:</strong> {group.disclaimer}
+              </p>
+            )}
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-9">
+        <h3 class="text-xl font-semibold text-[var(--color-foreground)]">{copy.engagementFormats}</h3>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          {services.mentoring.formats.map((format) => (
+            <article class="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)]">{format.tier}</p>
+              <h4 class="mt-2 text-lg font-semibold text-[var(--color-foreground)]">{format.title}</h4>
+              <p class="mt-2 text-sm text-[var(--color-muted)]">{format.cadence}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-9">
+        <h3 class="text-xl font-semibold text-[var(--color-foreground)]">{copy.boundaries}</h3>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-[var(--color-muted)]">
+          {services.mentoring.boundaries.map((boundary) => <li>{boundary}</li>)}
+        </ul>
+      </div>
+
+      <a
+        href={content.contactCta.href}
+        class="mt-8 inline-flex min-h-11 items-center rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)]"
+      >
+        {copy.mentoringCta}
+      </a>
+    </section>
+  </div>
+</BaseLayout>

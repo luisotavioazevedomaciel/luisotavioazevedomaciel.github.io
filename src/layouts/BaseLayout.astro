@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { type Locale } from '../data/siteContent';
+import { routeForLocale, type Locale } from '../data/siteContent';
 
 const { title, description, locale = 'en', compactTop = false } = Astro.props as {
   title?: string;
@@ -12,7 +12,7 @@ const { title, description, locale = 'en', compactTop = false } = Astro.props as
 };
 ---
 
-<html lang={locale} data-theme="light">
+<html lang={locale === 'pt' ? 'pt-BR' : 'en'} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,6 +21,9 @@ const { title, description, locale = 'en', compactTop = false } = Astro.props as
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(routeForLocale(Astro.url.pathname, 'en'), Astro.site)} />
+    <link rel="alternate" hreflang="pt-BR" href={new URL(routeForLocale(Astro.url.pathname, 'pt'), Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(routeForLocale(Astro.url.pathname, 'en'), Astro.site)} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -34,9 +37,9 @@ const { title, description, locale = 'en', compactTop = false } = Astro.props as
         : prefersDark ? 'dark' : 'light';
     </script>
   </head>
-  <body>
+  <body class="flex min-h-screen flex-col">
     <SiteHeader locale={locale} />
-    <main class:list={['container-shell', compactTop ? 'pt-4 pb-12 sm:pt-6 sm:pb-16' : 'py-12 sm:py-16']}>
+    <main class:list={['container-shell w-full flex-1', compactTop ? 'pt-4 pb-12 sm:pt-6 sm:pb-16' : 'py-12 sm:py-16']}>
       <slot />
     </main>
     <SiteFooter locale={locale} />

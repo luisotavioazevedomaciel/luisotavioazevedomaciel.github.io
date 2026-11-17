@@ -1,13 +1,10 @@
+import { findLocalizedRoute } from '../i18n/routeMap';
+
 export type Locale = 'en' | 'pt';
 
 export type NavItem = {
   label: string;
   href: string;
-};
-
-export type Highlight = {
-  title: string;
-  description: string;
 };
 
 export type CaseStudy = {
@@ -76,56 +73,139 @@ export const siteContent = {
         { value: '∞', suffix: '', label: 'Problems Solved' }
       ]
     },
-    services: [
-      {
-        title: 'Software Architecture & System Design',
-        description: 'Architecture reviews, API and system design guidance, trade-off analysis and ADRs for teams navigating complexity.'
-      },
-      {
-        title: 'Cloud Engineering & Infrastructure',
-        description: 'Azure-focused architecture, Terraform practices, migration planning and operational resilience reviews.'
-      },
-      {
-        title: 'Application Modernization',
-        description: 'Legacy assessments, incremental migration strategies and technical debt prioritization grounded in business realities.'
-      },
-      {
-        title: 'DevOps & Reliability Engineering',
-        description: 'CI/CD improvements, observability strategy, deployment readiness and developer experience enhancements.'
-      },
-      {
-        title: 'Engineering Advisory',
-        description: 'Technical decision support for founders, managers and teams who need practical guidance without heavy process overhead.'
+    services: {
+      positioning:
+        'Helping engineering teams design, modernize, and build reliable software systems through independent architectural guidance and practical technical assessments.',
+      audience:
+        'CTOs, technical founders, engineering managers, startups, scale-ups, and teams modernizing legacy systems.',
+      areas: [
+        {
+          title: 'Software Architecture & System Design',
+          description:
+            'Architecture reviews, system design, distributed systems, API and integration strategies, trade-off analysis, and Architecture Decision Records (ADRs).'
+        },
+        {
+          title: 'Cloud Engineering & Infrastructure',
+          description:
+            'Cloud architecture assessments, Infrastructure as Code (IaC) practices, migration planning, and cost, security, and reliability reviews.'
+        },
+        {
+          title: 'Application Modernization',
+          description:
+            'Legacy system assessments, incremental migration strategies, pragmatic monolith decomposition, and technical debt prioritization.'
+        },
+        {
+          title: 'DevOps & Reliability Engineering',
+          description:
+            'CI/CD improvements, deployment strategy reviews, observability, resilience practices, operational readiness, and developer experience.'
+        },
+        {
+          title: 'Engineering Advisory',
+          description:
+            'Technical decision support, engineering process reviews, documentation standards, and technical leadership support.'
+        }
+      ],
+      packages: [
+        {
+          title: 'Architecture Review',
+          scope: 'Independent evaluation of an existing system or proposed architecture.',
+          deliverables: ['Risk and bottleneck analysis', 'Trade-off evaluation', 'Prioritized recommendations']
+        },
+        {
+          title: 'Technical Assessment',
+          scope: 'Targeted diagnostic of an architecture, cloud/IaC, or delivery challenge.',
+          deliverables: ['Current-state diagnostic', 'Actionable improvement roadmap']
+        },
+        {
+          title: 'Engineering Advisory',
+          scope: 'Recurring technical guidance for ongoing architecture decisions and initiatives.',
+          deliverables: ['Regular architecture and design discussions', 'Technical leadership support']
+        }
+      ],
+      mentoring: {
+        positioning:
+          'Practical 1:1 mentoring for software engineers focused on technical growth, leadership readiness, and international career transitions.',
+        credibility:
+          'Grounded in {years}+ years of software engineering and Technical Lead experience across distributed systems, cloud infrastructure, production reliability, internal engineering standards (Engineering Handbook and Tech Radar), and firsthand international relocation.',
+        groups: [
+          {
+            id: 'career',
+            title: 'Career Growth Mentoring',
+            audience:
+              'Individual contributors progressing from junior roles to team-level technical leadership.',
+            stages: [
+              {
+                title: 'Junior → Mid-level',
+                description:
+                  'Become an autonomous contributor through clean code, maintainable design, automated testing, API and database fundamentals, debugging, and structured delivery habits.'
+              },
+              {
+                title: 'Mid-level → Senior Engineer',
+                description:
+                  'Develop system design judgment, distributed architecture skills, cloud and IaC practices, production observability, incident triage, and written technical proposals such as ADRs and RFCs.'
+              },
+              {
+                title: 'Senior Engineer → Tech Lead',
+                description:
+                  'Shift from individual delivery to team-level technical leadership: facilitate design decisions, align with Product Owners and stakeholders, mentor peers, and balance technical quality with delivery.'
+              }
+            ],
+            focusAreas: [],
+            deliverables: [
+              'Annotated code or architecture reviews',
+              'Mock system design or leadership scenarios',
+              'Structured 30-60-90 day growth roadmap'
+            ],
+            disclaimer: ''
+          },
+          {
+            id: 'international',
+            title: 'International Engineering Career Mentoring',
+            audience:
+              'Software engineers pursuing cross-border roles or relocation into international engineering teams.',
+            stages: [],
+            focusAreas: [
+              'Positioning CVs and professional profiles for international recruiters and hiring standards.',
+              'Preparing for multi-stage technical and behavioral interview loops in English.',
+              'Communicating architectural decisions and trade-offs clearly in cross-cultural, distributed teams.'
+            ],
+            deliverables: [
+              'Line-by-line English CV and profile rewrite',
+              'Targeted international job-search and interview readiness checklist'
+            ],
+            disclaimer:
+              'Practical career experience sharing only; this does not constitute legal, tax, visa, or immigration advice.'
+          }
+        ],
+        formats: [
+          {
+            title: 'Diagnostic Session',
+            tier: 'Entry',
+            cadence: 'Single 60-minute live session, async pre-review, and written action plan.'
+          },
+          {
+            title: '4-Week Focus Sprint',
+            tier: 'Kickoff',
+            cadence: 'Four 60-minute weekly sessions, async check-ins, and a 30-day milestone plan.'
+          },
+          {
+            title: 'Bi-Weekly Growth Retainer',
+            tier: 'Core Continuity',
+            cadence: 'Two 60-minute sessions per month plus async reviews; month-to-month, pause or cancel anytime.'
+          },
+          {
+            title: 'Async Continuity Retainer',
+            tier: 'Low-Touch',
+            cadence: 'Async code, ADR, or CV reviews plus one 30-minute monthly check-in.'
+          }
+        ],
+        boundaries: [
+          'Mentoring is grounded strictly in demonstrated Technical Lead experience; it does not claim Staff or Principal Engineer coaching.',
+          'No guarantees of job offers, visa approvals, promotions, or salary outcomes.',
+          'No ghostwriting take-home coding tests or live interview assistance.'
+        ]
       }
-    ] as Highlight[],
-    packages: [
-      {
-        title: 'Architecture Review',
-        description: 'Review an existing system or proposed architecture, highlight risks and deliver a prioritized recommendation set.'
-      },
-      {
-        title: 'Technical Assessment',
-        description: 'Assess a specific engineering challenge across architecture, cloud or delivery workflows and propose an action roadmap.'
-      },
-      {
-        title: 'Engineering Advisory',
-        description: 'Ongoing technical guidance for product and engineering leaders who need a trusted technical sounding board.'
-      }
-    ],
-    mentoringStages: [
-      {
-        title: 'Junior → Mid-level',
-        description: 'Building maintenance-friendly software, good testing practices, backend fundamentals and stronger engineering workflows.'
-      },
-      {
-        title: 'Mid-level → Senior',
-        description: 'Developing system design judgment, cloud fluency, architecture trade-offs and technical ownership.'
-      },
-      {
-        title: 'Senior → Tech Lead',
-        description: 'Preparing for technical leadership through design facilitation, risk communication and team-level engineering practices.'
-      }
-    ],
+    },
     caseStudies: [
       {
         slug: 'platform-modernization',
@@ -215,56 +295,139 @@ export const siteContent = {
         { value: '∞', suffix: '', label: 'Problemas Resolvidos' }
       ]
     },
-    services: [
-      {
-        title: 'Arquitetura de Software e Design de Sistemas',
-        description: 'Revisões de arquitetura, orientação em APIs e design de sistemas, análise de trade-offs e ADRs para times que lidam com complexidade.'
-      },
-      {
-        title: 'Engenharia em Cloud e Infraestrutura',
-        description: 'Arquitetura em Azure, práticas de Terraform, planejamento de migração e revisões de resiliência operacional.'
-      },
-      {
-        title: 'Modernização de Aplicações',
-        description: 'Avaliações de sistemas legados, estratégias de migração incremental e priorização de dívidas técnicas com foco em negócios.'
-      },
-      {
-        title: 'DevOps & Engenharia de Confiabilidade',
-        description: 'Melhorias em CI/CD, estratégia de observabilidade, readiness de deploy e experiência de desenvolvimento.'
-      },
-      {
-        title: 'Assessoria em Engenharia',
-        description: 'Suporte técnico para fundadores, gestores e times que precisam de orientação prática sem excesso de processo.'
+    services: {
+      positioning:
+        'Apoio equipes de engenharia a projetar, modernizar e construir sistemas de software confiáveis por meio de orientação arquitetural independente e avaliações técnicas práticas.',
+      audience:
+        'CTOs, fundadores técnicos, gestores de engenharia, startups, scale-ups e equipes modernizando sistemas legados.',
+      areas: [
+        {
+          title: 'Arquitetura de Software e Design de Sistemas',
+          description:
+            'Revisões de arquitetura, design de sistemas, sistemas distribuídos, estratégias de APIs e integrações, análise de trade-offs e registros de decisão arquitetural (ADRs).'
+        },
+        {
+          title: 'Engenharia em Cloud e Infraestrutura',
+          description:
+            'Avaliações de arquitetura em cloud, práticas de Infraestrutura como Código (IaC), planejamento de migração e revisões de custos, segurança e confiabilidade.'
+        },
+        {
+          title: 'Modernização de Aplicações',
+          description:
+            'Avaliações de sistemas legados, estratégias de migração incremental, decomposição pragmática de monólitos e priorização de dívida técnica.'
+        },
+        {
+          title: 'DevOps e Engenharia de Confiabilidade',
+          description:
+            'Melhorias em CI/CD, revisão de estratégias de deploy, observabilidade, práticas de resiliência, prontidão operacional e experiência de desenvolvimento.'
+        },
+        {
+          title: 'Assessoria em Engenharia',
+          description:
+            'Apoio a decisões técnicas, revisão de processos de engenharia, padrões de documentação e suporte à liderança técnica.'
+        }
+      ],
+      packages: [
+        {
+          title: 'Revisão de Arquitetura',
+          scope: 'Avaliação independente de um sistema existente ou de uma arquitetura proposta.',
+          deliverables: ['Análise de riscos e gargalos', 'Avaliação de trade-offs', 'Recomendações priorizadas']
+        },
+        {
+          title: 'Avaliação Técnica',
+          scope: 'Diagnóstico direcionado de um desafio de arquitetura, cloud/IaC ou fluxo de entrega.',
+          deliverables: ['Diagnóstico do estado atual', 'Roteiro prático de melhorias']
+        },
+        {
+          title: 'Assessoria em Engenharia',
+          scope: 'Orientação técnica recorrente para decisões e iniciativas arquiteturais em andamento.',
+          deliverables: ['Conversas regulares sobre arquitetura e design', 'Suporte à liderança técnica']
+        }
+      ],
+      mentoring: {
+        positioning:
+          'Mentoria prática 1:1 para profissionais de engenharia de software com foco em crescimento técnico, preparação para liderança e transições internacionais de carreira.',
+        credibility:
+          'Fundamentada em {years}+ anos de experiência em engenharia de software e como Technical Lead em sistemas distribuídos, infraestrutura cloud, confiabilidade em produção, padrões internos de engenharia (Engineering Handbook e Tech Radar) e experiência própria de mudança internacional.',
+        groups: [
+          {
+            id: 'career',
+            title: 'Mentoria para crescimento na carreira',
+            audience:
+              'Profissionais individuais que avançam de posições júnior para responsabilidades de liderança técnica no time.',
+            stages: [
+              {
+                title: 'Júnior → Pleno',
+                description:
+                  'Torne-se uma pessoa contribuidora autônoma com código limpo, design sustentável, testes automatizados, fundamentos de APIs e bancos de dados, debugging e hábitos estruturados de entrega.'
+              },
+              {
+                title: 'Pleno → Engenheiro(a) Sênior',
+                description:
+                  'Desenvolva julgamento em design de sistemas, arquitetura distribuída, práticas de cloud e IaC, observabilidade em produção, triagem de incidentes e propostas técnicas escritas, como ADRs e RFCs.'
+              },
+              {
+                title: 'Engenheiro(a) Sênior → Tech Lead',
+                description:
+                  'Faça a transição da entrega individual para a liderança técnica do time: facilite decisões de design, alinhe-se com Product Owners e stakeholders, mentore colegas e equilibre qualidade técnica com entrega.'
+              }
+            ],
+            focusAreas: [],
+            deliverables: [
+              'Revisões comentadas de código ou arquitetura',
+              'Simulações de design de sistemas ou cenários de liderança',
+              'Plano estruturado de crescimento para 30-60-90 dias'
+            ],
+            disclaimer: ''
+          },
+          {
+            id: 'international',
+            title: 'Mentoria para carreira internacional em engenharia',
+            audience:
+              'Profissionais de engenharia de software que buscam posições em outros países ou uma transição para equipes internacionais.',
+            stages: [],
+            focusAreas: [
+              'Posicionamento de currículos e perfis profissionais para recrutadores internacionais e padrões de contratação globais.',
+              'Preparação para processos seletivos técnicos e comportamentais em várias etapas, em inglês.',
+              'Comunicação clara de decisões arquiteturais e trade-offs em equipes distribuídas e multiculturais.'
+            ],
+            deliverables: [
+              'Revisão linha a linha de currículo e perfil em inglês',
+              'Checklist direcionado de busca de vagas internacionais e preparação para entrevistas'
+            ],
+            disclaimer:
+              'Compartilhamento prático de experiência de carreira; não constitui orientação jurídica, tributária, de visto ou imigração.'
+          }
+        ],
+        formats: [
+          {
+            title: 'Sessão de Diagnóstico',
+            tier: 'Entrada',
+            cadence: 'Uma sessão ao vivo de 60 minutos, pré-análise assíncrona e plano de ação por escrito.'
+          },
+          {
+            title: 'Sprint de Foco de 4 Semanas',
+            tier: 'Início',
+            cadence: 'Quatro sessões semanais de 60 minutos, acompanhamentos assíncronos e plano de marcos para 30 dias.'
+          },
+          {
+            title: 'Acompanhamento de Crescimento Quinzenal',
+            tier: 'Continuidade principal',
+            cadence: 'Duas sessões de 60 minutos por mês e revisões assíncronas; mensal, com opção de pausar ou cancelar a qualquer momento.'
+          },
+          {
+            title: 'Acompanhamento Assíncrono',
+            tier: 'Baixa frequência',
+            cadence: 'Revisões assíncronas de código, ADRs ou currículo e uma conversa mensal de 30 minutos.'
+          }
+        ],
+        boundaries: [
+          'A mentoria se limita à experiência demonstrada como Technical Lead; não oferece coaching baseado em cargos de Staff ou Principal Engineer.',
+          'Não há garantias de ofertas de emprego, aprovação de vistos, promoções ou resultados salariais.',
+          'Não inclui escrever testes técnicos para candidatos nem assistência durante entrevistas ao vivo.'
+        ]
       }
-    ] as Highlight[],
-    packages: [
-      {
-        title: 'Revisão de Arquitetura',
-        description: 'Avalie um sistema existente ou uma arquitetura proposta, identifique riscos e entregue recomendações priorizadas.'
-      },
-      {
-        title: 'Avaliação Técnica',
-        description: 'Avalie um desafio específico de engenharia em arquitetura, cloud ou fluxo de entrega e proponha um roteiro de ações.'
-      },
-      {
-        title: 'Assessoria em Engenharia',
-        description: 'Orientação técnica contínua para líderes de produto e engenharia que precisam de um apoio confiável.'
-      }
-    ],
-    mentoringStages: [
-      {
-        title: 'Júnior → Pleno',
-        description: 'Construir software mais sustentável, boas práticas de testes, fundamentos de backend e fluxos de engenharia mais fortes.'
-      },
-      {
-        title: 'Pleno → Senior',
-        description: 'Desenvolver julgamento de design de sistema, fluência em cloud, trade-offs arquiteturais e responsabilidade técnica.'
-      },
-      {
-        title: 'Senior → Tech Lead',
-        description: 'Preparar a transição para liderança técnica com facilitação de design, comunicação de riscos e práticas de engenharia em time.'
-      }
-    ],
+    },
     caseStudies: [
       {
         slug: 'modernizacao-de-plataforma',
@@ -326,24 +489,8 @@ export const siteContent = {
 
 export function routeForLocale(path: string, targetLocale: Locale): string {
   const normalized = `/${path.split('/').filter(Boolean).join('/')}`;
-  const englishToPortuguese: Record<string, string> = {
-    '/': '/pt/',
-    '/about': '/pt/sobre/',
-    '/work': '/pt/projetos/',
-    '/writing': '/pt/artigos/',
-    '/services': '/pt/servicos/',
-    '/contact': '/pt/contato/',
-  };
-
-  if (targetLocale === 'pt' && englishToPortuguese[normalized]) {
-    return englishToPortuguese[normalized];
-  }
-  if (targetLocale === 'en') {
-    const englishRoute = Object.entries(englishToPortuguese).find(
-      ([, translated]) => translated.replace(/\/+$/, '') === normalized,
-    )?.[0];
-    if (englishRoute) return englishRoute === '/' ? '/' : `${englishRoute}/`;
-  }
+  const localizedRoute = findLocalizedRoute(path, targetLocale);
+  if (localizedRoute) return localizedRoute;
 
   const englishPrefix = '/work/';
   const portuguesePrefix = '/pt/projetos/';

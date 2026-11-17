@@ -6,28 +6,33 @@ const content = siteContent[locale];
 ---
 
 <footer class="border-t border-white/10 bg-black text-white">
-  <div role="group" aria-label={locale === 'en' ? 'Social and contact links' : 'Links sociais e de contato'}>
-    <ul class="mx-auto flex max-w-6xl justify-center gap-3 px-4 py-6 sm:px-6 lg:px-8">
-      {content.contactLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            aria-label={link.label}
-            title={link.label}
-            class="grid size-11 place-items-center rounded-full border border-white/20 text-white transition hover:border-white hover:bg-white/10"
-          >
-            {link.icon === 'email' ? (
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="size-5">
-                <path d="M3.75 6.75h16.5v10.5H3.75zM4.25 7.25 12 13l7.75-5.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            ) : (
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="size-5">
-                <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.34 18H5.67V9.4h2.67ZM7 8.23a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1ZM18.33 18h-2.66v-4.19c0-1-.02-2.27-1.39-2.27-1.39 0-1.6 1.08-1.6 2.2V18h-2.66V9.4h2.55v1.18h.04a2.8 2.8 0 0 1 2.52-1.38c2.69 0 3.19 1.77 3.19 4.07Z" />
-              </svg>
-            )}
-          </a>
-        </li>
-      ))}
-    </ul>
+  <div class="mx-auto flex max-w-6xl flex-col-reverse items-center justify-between gap-4 px-4 py-6 sm:flex-row sm:px-6 lg:px-8">
+    <p class="text-sm text-white/70">© 2026 Luís Maciel</p>
+    <div role="group" aria-label={locale === 'en' ? 'Social and contact links' : 'Links sociais e de contato'}>
+      <ul class="flex justify-center gap-3">
+        {content.contactLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-label={link.label}
+              title={link.label}
+              target={link.icon === 'linkedin' ? '_blank' : undefined}
+              rel={link.icon === 'linkedin' ? 'noopener noreferrer' : undefined}
+              class="grid size-11 place-items-center rounded-full border border-white/20 text-white transition hover:border-white hover:bg-white/10"
+            >
+              {link.icon === 'email' ? (
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="size-5">
+                  <path d="M3.75 6.75h16.5v10.5H3.75zM4.25 7.25 12 13l7.75-5.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              ) : (
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+                  <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.34 18H5.67V9.4h2.67ZM7 8.23a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1ZM18.33 18h-2.66v-4.19c0-1-.02-2.27-1.39-2.27-1.39 0-1.6 1.08-1.6 2.2V18h-2.66V9.4h2.55v1.18h.04a2.8 2.8 0 0 1 2.52-1.38c2.69 0 3.19 1.77 3.19 4.07Z" />
+                </svg>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </footer>
