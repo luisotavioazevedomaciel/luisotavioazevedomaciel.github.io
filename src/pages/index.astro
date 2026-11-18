@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeStats from '../components/HomeStats.astro';
+import { siteContent, type Locale } from '../data/siteContent';
+import homePortrait from '../../homepage-image.png';
+
+const locale: Locale = 'en';
+const content = siteContent[locale];
+---
+
+<BaseLayout
+  title={`${content.name} | ${content.title}`}
+  description={content.description}
+  locale={locale}
+  compactTop
+>
+  <section>
+    <div class="grid grid-cols-1 items-center gap-8 md:grid-cols-[minmax(0,1fr)_20rem] md:gap-12">
+      <Image
+        src={homePortrait}
+        alt="Portrait of Luis Maciel"
+        width={480}
+        height={480}
+        class="order-first mx-auto aspect-square w-36 rounded-xl object-cover md:order-last md:w-80"
+      />
+      <div class="max-w-3xl">
+        <span class="eyebrow">{content.hero.eyebrow}</span>
+        <h1 class="mt-5 text-4xl font-black tracking-tight text-[var(--color-foreground)] sm:text-5xl lg:text-6xl">
+          {content.hero.title}<br />
+          <span class="text-[var(--color-accent)]">{content.hero.subtitle}</span>
+        </h1>
+        <p class="mt-5 max-w-xl text-lg text-[var(--color-muted)]">{content.intro}</p>
+        <div class="mt-12 flex flex-wrap gap-4">
+          <a href={content.hero.primaryHref} class="rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-[var(--color-on-accent)] transition hover:bg-[var(--color-accent-hover)]">
+            {content.hero.primaryCta}
+          </a>
+          <a href={content.hero.secondaryHref} class="rounded-full border border-[var(--color-border)] px-6 py-3 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
+            {content.hero.secondaryCta}
+          </a>
+        </div>
+      </div>
+    </div>
+    <HomeStats locale={locale} stats={content.stats} />
+  </section>
+
+  <section class="mt-16 border-y border-[var(--color-border)] bg-[var(--color-accent-soft)] px-5 py-8 sm:px-8 lg:flex lg:items-center lg:justify-between lg:gap-8">
+    <div>
+      <p class="section-label">Services</p>
+      <h2 class="mt-2 text-xl font-semibold text-[var(--color-foreground)]">Consulting and mentoring for better engineering.</h2>
+      <p class="mt-2 max-w-2xl text-sm text-[var(--color-muted)]">Practical support for teams building reliable systems and engineers growing their technical leadership.</p>
+    </div>
+    <a href="/services/" class="mt-5 inline-flex shrink-0 rounded-full border border-[var(--color-border)] px-5 py-2.5 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] lg:mt-0">Explore services →</a>
+  </section>
+
+</BaseLayout>

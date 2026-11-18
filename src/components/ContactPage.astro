@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteContent, type Locale } from '../data/siteContent';
+import { getUi } from '../i18n/ui';
+
+const { locale } = Astro.props as { locale: Locale };
+const content = siteContent[locale];
+const copy = getUi(locale).contact;
+const emailLink = content.contactLinks.find((link) => link.icon === 'email');
+const linkedinLink = content.contactLinks.find((link) => link.icon === 'linkedin');
+
+if (!emailLink || !linkedinLink) {
+  throw new Error(`Contact links are missing for locale "${locale}".`);
+}
+
+const emailAddress = emailLink.href.replace(/^mailto:/, '');
+---
+
+<BaseLayout title={copy.title} description={copy.description} locale={locale}>
+  <section class="max-w-3xl">
+    <p class="section-label">{copy.eyebrow}</p>
+    <h1 class="section-title mt-3 text-4xl sm:text-5xl">{copy.headline}</h1>
+    <p class="mt-5 text-lg text-[var(--color-muted)]">{copy.subheadline}</p>
+  </section>
+
+  <section class="mt-8 max-w-4xl" aria-label={copy.eyebrow}>
+    <div class="flex flex-col gap-3">
+      <div data-email-row class="flex items-center justify-between gap-3 sm:justify-start">
+        <div class="flex items-center gap-2">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="size-5 shrink-0 text-[var(--color-muted)]">
+            <path d="M3.75 6.75h16.5v10.5H3.75zM4.25 7.25 12 13l7.75-5.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-muted)]">{copy.emailLabel}</span>
+        </div>
+        <div class="flex shrink-0 items-center gap-2">
+          <button
+            type="button"
+            data-copy-email
+            data-copy-value={emailAddress}
+            data-copy-label={copy.copy}
+            data-copy-success={copy.copied}
+            data-copy-error={copy.copyError}
+            class="inline-flex min-h-11 items-center gap-2 rounded-full border border-[var(--color-border)] px-4 py-2 text-sm font-semibold text-[var(--color-foreground)] transition hover:border-[var(--color-accent)]"
+          >
+            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="size-4">
+              <rect x="7" y="6" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.4" />
+              <path d="M12 4H5.5A1.5 1.5 0 0 0 4 5.5v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+            <span data-copy-label-text>{copy.copy}</span>
+          </button>
+          <a
+            href={emailLink.href}
+            class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-on-accent)] transition hover:bg-[var(--color-accent-hover)]"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" class="size-4">
+              <path d="M3.75 6.75h16.5v10.5H3.75zM4.25 7.25 12 13l7.75-5.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {copy.sendEmail}
+          </a>
+        </div>
+        <p data-copy-status aria-live="polite" aria-atomic="true" class="sr-only"></p>
+      </div>
+
+      <a
+        href={linkedinLink.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex items-center gap-2 border-t border-[var(--color-border)] pt-3 transition hover:text-[var(--color-accent)] focus-visible:relative"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="size-5 shrink-0 text-[var(--color-muted)]">
+            <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.34 18H5.67V9.4h2.67ZM7 8.23a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1ZM18.33 18h-2.66v-4.19c0-1-.02-2.27-1.39-2.27-1.39 0-1.6 1.08-1.6 2.2V18h-2.66V9.4h2.55v1.18h.04a2.8 2.8 0 0 1 2.52-1.38c2.69 0 3.19 1.77 3.19 4.07Z" />
+        </svg>
+        <span class="text-xs font-semibold uppercase tracking-[0.14em]">{copy.linkedinLabel}</span>
+        <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" class="size-5 shrink-0 text-[var(--color-muted)] transition group-hover:text-[var(--color-foreground)]">
+          <path d="M7 13 13 7M7.5 7H13v5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <p class="mt-4 max-w-3xl text-sm text-[var(--color-muted)]">{copy.helper}</p>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-email]').forEach((button) => {
+    const status = button.closest<HTMLElement>('[data-email-row]')?.querySelector<HTMLElement>('[data-copy-status]');
+    const buttonLabel = button.querySelector<HTMLElement>('[data-copy-label-text]');
+    const email = button.dataset.copyValue;
+    let feedbackTimeout: ReturnType<typeof setTimeout> | undefined;
+
+    if (!status || !buttonLabel || !email) {
+      throw new Error('Email copy control is missing its value, label, or live status element.');
+    }
+
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        status.textContent = button.dataset.copySuccess ?? '';
+        buttonLabel.textContent = button.dataset.copySuccess ?? '';
+      } catch {
+        const errorMessage = button.dataset.copyError ?? '';
+        status.textContent = errorMessage;
+        buttonLabel.textContent = errorMessage;
+      }
+
+      if (feedbackTimeout) clearTimeout(feedbackTimeout);
+      feedbackTimeout = setTimeout(() => {
+        status.textContent = '';
+        buttonLabel.textContent = button.dataset.copyLabel ?? '';
+      }, 2000);
+    });
+  });
+</script>

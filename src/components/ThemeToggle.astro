@@ -1,0 +1,41 @@
+---
+import { type Locale } from '../data/siteContent';
+
+const { locale = 'en' } = Astro.props as { locale?: Locale };
+const darkLabel = locale === 'en' ? 'Switch to dark theme' : 'Ativar tema escuro';
+const lightLabel = locale === 'en' ? 'Switch to light theme' : 'Ativar tema claro';
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label={darkLabel}
+  aria-pressed="false"
+  data-dark-label={darkLabel}
+  data-light-label={lightLabel}
+  class="grid size-11 shrink-0 place-items-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-foreground)] transition hover:border-[var(--color-foreground)]"
+>
+  <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+    <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.804a6 6 0 0 0 8.268 8.268c.344-.215.826-.003.803.4Z" />
+  </svg>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
+
+  if (button) {
+    const syncButton = () => {
+      const isDark = root.dataset.theme === 'dark';
+      button.setAttribute('aria-pressed', String(isDark));
+      button.setAttribute('aria-label', isDark ? button.dataset.lightLabel ?? '' : button.dataset.darkLabel ?? '');
+    };
+
+    syncButton();
+    button.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', root.dataset.theme);
+      syncButton();
+    });
+  }
+</script>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { siteContent, type Locale } from '../../../data/siteContent';
+
+export function getStaticPaths() {
+  return [];
+}
+
+const { project } = Astro.props;
+const locale: Locale = 'pt';
+const content = siteContent[locale];
+---
+
+<BaseLayout title={`${project.title} | ${content.name}`} description={project.summary} locale={locale}>
+  <article class="mx-auto max-w-4xl">
+    <p class="section-label">Estudo de caso</p>
+    <h1 class="section-title mt-3 text-4xl sm:text-5xl">{project.title}</h1>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {project.tags.map((tag) => (
+        <span class="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent)]">{tag}</span>
+      ))}
+    </div>
+
+    <div class="mt-10 space-y-8 text-[var(--color-muted)]">
+      <section>
+        <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Contexto</h2>
+        <p class="mt-3">Uma equipe de produto crescia rapidamente, mas a arquitetura da aplicação estava cada vez mais difícil de entender. A velocidade de entrega e a confiança operacional estavam sendo afetadas por fronteiras pouco claras e por uma dívida técnica crescente.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Abordagem</h2>
+        <p class="mt-3">Trabalhei em conjunto com a equipe para definir capacidades críticas de negócio, identificar fronteiras arquiteturais mais valiosas e propor uma rota de migração que reduzisse risco sem interromper a entrega. O foco esteve em clareza operacional, explicabilidade e melhorias incrementais.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Resultado</h2>
+        <p class="mt-3">{project.outcome}</p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

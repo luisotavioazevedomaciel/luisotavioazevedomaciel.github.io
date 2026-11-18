@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteContent, type Locale } from '../../data/siteContent';
+
+export function getStaticPaths() {
+  return [];
+}
+
+const { project } = Astro.props;
+const locale: Locale = 'en';
+const content = siteContent[locale];
+---
+
+<BaseLayout title={`${project.title} | ${content.name}`} description={project.summary} locale={locale}>
+  <article class="mx-auto max-w-4xl">
+    <p class="section-label">Case study</p>
+    <h1 class="section-title mt-3 text-4xl sm:text-5xl">{project.title}</h1>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {project.tags.map((tag) => (
+        <span class="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent)]">{tag}</span>
+      ))}
+    </div>
+
+    <div class="mt-10 space-y-8 text-[var(--color-muted)]">
+      <section>
+        <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Context</h2>
+        <p class="mt-3">A product team was growing quickly, but the application architecture had become difficult to reason about. Delivery speed and operational confidence were being slowed down by unclear boundaries and a rising amount of technical debt.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Approach</h2>
+        <p class="mt-3">I worked closely with the team to define the critical business capabilities, identify the most valuable architectural boundaries and propose a migration path that reduced risk without disrupting delivery. We focused on explainability, operational clarity and incremental improvements.</p>
+      </section>
+      <section>
+        <h2 class="text-2xl font-bold text-[var(--color-foreground)]">Outcome</h2>
+        <p class="mt-3">{project.outcome}</p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>

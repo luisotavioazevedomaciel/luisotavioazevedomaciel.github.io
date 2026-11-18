@@ -1,0 +1,103 @@
+---
+import { type Locale } from '../data/siteContent';
+
+type Stat = {
+  value: number | string;
+  suffix: string;
+  label: string;
+};
+
+const { locale, stats } = Astro.props as {
+  locale: Locale;
+  stats: {
+    heading: string;
+    items: Stat[];
+  };
+};
+const numberLocale = locale === 'pt' ? 'pt-PT' : 'en-US';
+const formatNumber = new Intl.NumberFormat(numberLocale);
+---
+
+<section
+  class="mt-14 py-6"
+  data-home-stats
+  aria-labelledby="home-stats-title"
+>
+  <h2 id="home-stats-title" class="sr-only">{stats.heading}</h2>
+  <dl class="grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-4 sm:gap-4">
+    {stats.items.map((stat) => (
+      <div class="flex flex-col-reverse items-center gap-1 text-center">
+        <dt class="max-w-56 text-xs font-medium leading-5 text-[var(--color-muted)] sm:text-sm">{stat.label}</dt>
+        <dd class="text-3xl font-bold tracking-tight text-[var(--color-foreground)] sm:text-4xl">
+          {typeof stat.value === 'number' ? (
+            <>
+              <span
+                aria-hidden="true"
+                data-count-up
+                data-value={stat.value}
+                data-suffix={stat.suffix}
+                data-locale={numberLocale}
+              >
+                {formatNumber.format(stat.value)}{stat.suffix}
+              </span>
+              <span class="sr-only">{formatNumber.format(stat.value)}{stat.suffix}</span>
+            </>
+          ) : (
+            <>
+              <span aria-hidden="true">{stat.value}</span>
+              <span class="sr-only">{locale === 'pt' ? 'Infinito — ' : 'Infinite — '}{stat.label}</span>
+            </>
+          )}
+        </dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<script>
+  const statValues = document.querySelectorAll<HTMLElement>('[data-count-up]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reducedMotion && statValues.length > 0) {
+    const formatters = new Map<string, Intl.NumberFormat>();
+    const animateCount = (element: HTMLElement) => {
+      const target = Number(element.dataset.value);
+      const suffix = element.dataset.suffix ?? '';
+      const locale = element.dataset.locale ?? 'en';
+      if (!Number.isFinite(target)) return;
+
+      const formatter = formatters.get(locale) ?? new Intl.NumberFormat(locale);
+      formatters.set(locale, formatter);
+      const start = performance.now();
+      const duration = 1200;
+
+      const update = (now: number) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        element.textContent = `${formatter.format(Math.round(target * easedProgress))}${suffix}`;
+        if (progress < 1) requestAnimationFrame(update);
+      };
+
+      requestAnimationFrame(update);
+    };
+
+    document.querySelectorAll<HTMLElement>('[data-home-stats]').forEach((section) => {
+      const values = section.querySelectorAll<HTMLElement>('[data-count-up]');
+      if (!('IntersectionObserver' in window)) {
+        values.forEach(animateCount);
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            values.forEach(animateCount);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.25 },
+      );
+      observer.observe(section);
+    });
+  }
+</script>
