@@ -3,10 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteContent, type Locale } from '../../data/siteContent';
 
 export function getStaticPaths() {
-  return siteContent.en.articles.map((article) => ({
-    params: { slug: article.slug },
-    props: { article }
-  }));
+  return [];
 }
 
 const { article } = Astro.props;

@@ -1,31 +1,12 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteContent, type Locale } from '../data/siteContent';
-
-const locale: Locale = 'en';
-const content = siteContent[locale];
 ---
 
-<BaseLayout title={`Work | ${content.name}`} description="Selected work and engineering case studies." locale={locale}>
-  <section>
-    <p class="section-label">Work</p>
-    <h1 class="section-title mt-3 text-4xl sm:text-5xl">Selected case studies.</h1>
-    <p class="mt-5 max-w-3xl text-lg text-[var(--color-muted)]">I work with product and engineering teams to simplify complexity, improve delivery and create more resilient systems.</p>
-  </section>
-
-  <section class="mt-12 grid gap-6 lg:grid-cols-3">
-    {content.caseStudies.map((project) => (
-      <article class="card p-6">
-        <div class="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span class="rounded-full bg-[var(--color-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--color-accent)]">{tag}</span>
-          ))}
-        </div>
-        <h2 class="mt-5 text-2xl font-semibold text-[var(--color-foreground)]">{project.title}</h2>
-        <p class="mt-4 text-[var(--color-muted)]">{project.summary}</p>
-        <p class="mt-4 text-sm font-medium text-[var(--color-foreground)]">{project.outcome}</p>
-        <a href={`/work/${project.slug}/`} class="mt-6 inline-flex font-semibold text-[var(--color-accent)]">Read case study →</a>
-      </article>
-    ))}
-  </section>
-</BaseLayout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0;url=/" />
+    <title>Redirecting</title>
+  </head>
+  <body></body>
+</html>

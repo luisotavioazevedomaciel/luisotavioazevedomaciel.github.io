@@ -47,9 +47,6 @@ export const siteContent = {
     description:
       'I help engineering teams design, modernize and build reliable software systems. I also mentor software engineers who want to grow into stronger technical leaders.',
     nav: [
-      { label: 'About', href: '/about/' },
-      { label: 'Work', href: '/work/' },
-      { label: 'Writing', href: '/writing/' },
       { label: 'Services', href: '/services/' }
     ] as NavItem[],
     contactCta: { label: 'Get in touch', href: '/contact/' },
@@ -58,9 +55,9 @@ export const siteContent = {
       title: 'Creating solutions.',
       subtitle: 'Guiding engineers.',
       primaryCta: 'Explore services',
-      secondaryCta: 'See selected work',
+      secondaryCta: 'Get in touch',
       primaryHref: '/services/',
-      secondaryHref: '/work/'
+      secondaryHref: '/contact/'
     },
     intro:
       'Technical Lead with 8+ years of software engineering experience helping teams design resilient systems, simplify delivery and grow stronger engineering habits.',
@@ -69,7 +66,6 @@ export const siteContent = {
       items: [
         { value: profileMetrics.yearsExperience, suffix: '+', label: 'Years of Experience' },
         { value: profileMetrics.certifications, suffix: '×', label: 'Certifications' },
-        { value: profileMetrics.projectsDelivered, suffix: '+', label: 'Projects Delivered' },
         { value: '∞', suffix: '', label: 'Problems Solved' }
       ]
     },
@@ -269,9 +265,6 @@ export const siteContent = {
     description:
       'Ajudo times de engenharia a desenhar, modernizar e construir sistemas confiáveis. Também mentoro engenheiros que querem crescer em liderança técnica.',
     nav: [
-      { label: 'Sobre', href: '/pt/sobre/' },
-      { label: 'Projetos', href: '/pt/projetos/' },
-      { label: 'Artigos', href: '/pt/artigos/' },
       { label: 'Serviços', href: '/pt/servicos/' }
     ] as NavItem[],
     contactCta: { label: 'Entre em contato', href: '/pt/contato/' },
@@ -280,9 +273,9 @@ export const siteContent = {
       title: 'Criando soluções.',
       subtitle: 'Guiando engenheiros.',
       primaryCta: 'Explorar serviços',
-      secondaryCta: 'Ver projetos selecionados',
+      secondaryCta: 'Entre em contato',
       primaryHref: '/pt/servicos/',
-      secondaryHref: '/pt/projetos/'
+      secondaryHref: '/pt/contato/'
     },
     intro:
       'Technical Lead com mais de 8 anos de experiência em engenharia de software, ajudando times a criar sistemas resilientes, simplificar entrega e desenvolver melhores hábitos de engenharia.',
@@ -291,7 +284,6 @@ export const siteContent = {
       items: [
         { value: profileMetrics.yearsExperience, suffix: '+', label: 'Anos de Experiência' },
         { value: profileMetrics.certifications, suffix: '×', label: 'Certificações' },
-        { value: profileMetrics.projectsDelivered, suffix: '+', label: 'Projetos Entregues' },
         { value: '∞', suffix: '', label: 'Problemas Resolvidos' }
       ]
     },
@@ -488,35 +480,6 @@ export const siteContent = {
 } as const;
 
 export function routeForLocale(path: string, targetLocale: Locale): string {
-  const normalized = `/${path.split('/').filter(Boolean).join('/')}`;
   const localizedRoute = findLocalizedRoute(path, targetLocale);
-  if (localizedRoute) return localizedRoute;
-
-  const englishPrefix = '/work/';
-  const portuguesePrefix = '/pt/projetos/';
-  const englishArticlePrefix = '/writing/';
-  const portugueseArticlePrefix = '/pt/artigos/';
-
-  const matchDynamicRoute = (
-    prefix: string,
-    entries: readonly { slug: string }[],
-    translatedPrefix: string,
-    translatedEntries: readonly { slug: string }[],
-  ): string | undefined => {
-    if (!normalized.startsWith(prefix)) return undefined;
-    const slug = normalized.slice(prefix.length);
-    const index = entries.findIndex((entry) => entry.slug === slug);
-    return index < 0 || !translatedEntries[index]
-      ? undefined
-      : `${translatedPrefix}${translatedEntries[index].slug}/`;
-  };
-
-  const translated =
-    targetLocale === 'pt'
-      ? matchDynamicRoute(englishPrefix, siteContent.en.caseStudies, portuguesePrefix, siteContent.pt.caseStudies) ??
-      matchDynamicRoute(englishArticlePrefix, siteContent.en.articles, portugueseArticlePrefix, siteContent.pt.articles)
-      : matchDynamicRoute(portuguesePrefix, siteContent.pt.caseStudies, englishPrefix, siteContent.en.caseStudies) ??
-      matchDynamicRoute(portugueseArticlePrefix, siteContent.pt.articles, englishArticlePrefix, siteContent.en.articles);
-
-  return translated ?? (targetLocale === 'pt' ? '/pt/' : '/');
+  return localizedRoute ?? (targetLocale === 'pt' ? '/pt/' : '/');
 }

@@ -4,9 +4,6 @@ type LocalizedRoute = Record<Locale, string>;
 
 export const routeMap: LocalizedRoute[] = [
   { en: '/', pt: '/pt/' },
-  { en: '/about/', pt: '/pt/sobre/' },
-  { en: '/work/', pt: '/pt/projetos/' },
-  { en: '/writing/', pt: '/pt/artigos/' },
   { en: '/services/', pt: '/pt/servicos/' },
   { en: '/contact/', pt: '/pt/contato/' }
 ];
